@@ -1,5 +1,8 @@
-import { createApp } from "vue";
+import { createApp, VueElement } from "vue";
 import App from "./App.vue";
-// import "./assets/global.css";
+// import detectLanguage from "./utils/detectLanguage.js";
 
-createApp(App).mount("#app");
+const app = createApp(App);
+app.mount("#app");
+
+// createApp(App).mount("#app");

@@ -1,25 +1,30 @@
 <template>
   <div class="proj-container">
     <div class="header-proj-container">{{ projectTitle }}</div>
-    <div class="body-proj-container">
-      <p>
-        {{ projectDescription }}
-      </p>
-    </div>
-    <div v-if="buttonLinks" class="link-proj-container">
-      <a
-        v-for="btn in buttonLinks"
-        :href="btn.href"
-        class="link-project-access"
-        target="_blank"
-        >{{ btn.text }}</a
-      >
-    </div>
-    <div v-if="techs" class="techs-proj-container">
-      <TechPill v-for="tech in techs" :techKey="tech" />
-    </div>
-    <div v-if="updated" class="footer-proj-container">
-      Updated: {{ updated }}
+    <div class="body-proj-container" :class="{ minheight: minheight == true }">
+      <div class="up-body-proj-container">
+        <p>
+          {{ projectDescription }}
+        </p>
+      </div>
+      <div class="under-body-proj-container">
+        <div v-if="buttonLinks" class="link-proj-container">
+          <a
+            v-for="btn in buttonLinks"
+            :href="btn.href"
+            class="link-project-access"
+            target="_blank"
+            >{{ btn.text }}</a
+          >
+        </div>
+        <div v-if="techs" class="techs-proj-container">
+          <TechPill v-for="tech in techs" :techKey="tech" />
+        </div>
+        <div v-if="updated" class="footer-proj-container">
+          <span lang="en">Updated: &nbsp;</span>
+          <span lang="pt">Atualizado: &nbsp;</span><span> {{ updated }}</span>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -35,26 +40,43 @@ export default {
     "buttonLinks",
     "techs",
     "updated",
+    "minheight",
   ],
   components: { TechPill },
+  mounted() {
+    console.log("created");
+    console.log(this.minheight);
+    if (this.minheight == false) {
+      // document.querySelectorAll(".body-proj-container").forEach((el) => {
+      // el.style.minHeight = "unset";
+      // });
+      // this.style.minHeight = "unset";
+      // this.classList.add("minheight");
+    }
+  },
+  created() {
+    // console.log("UIASHDIUASHDIUASH");
+    // this.classList.add("minheight");
+  },
 };
 </script>
 
 <style>
 .proj-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
   max-width: 372px;
 
   background-color: var(--element-bg-color);
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
-  /* box-shadow: 0px 0px 4px 0px var(--box-shadow-color); */
   box-shadow: var(--box-shadow-x) var(--box-shadow-y)
     var(--box-shadow-blur-radius) var(--box-shadow-spread-radius)
     var(--box-shadow-color);
-  /* transition: 0.2s all ease-in-out; */
+
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 @media only screen and (max-width: 668px) {
@@ -112,10 +134,32 @@ export default {
 }
 
 .body-proj-container {
-  padding: 0 1rem;
-  line-height: 1.75rem;
+  /* min-height: 300px; */
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  /* border: 3px dashed white; */
+}
+
+.up-body-proj-container {
+  padding: 0rem 1rem 0.5rem 1rem;
   text-align: justify;
-  flex-grow: 1; /* Esta linha faz com que o techs-proj-container fique grudado na base, como desejado. */
+
+  /* border: 3px solid orange; */
+}
+.under-body-proj-container {
+  /* display: flex;
+  flex-direction: column;
+  justify-content: flex-end; */
+  width: 100%;
+
+  /* border: 3px solid green; */
+}
+
+.body-proj-container.minheight {
+  min-height: 300px;
 }
 
 .link-project-access {
@@ -148,11 +192,7 @@ export default {
 }
 
 .link-proj-container {
-  padding: 0.5rem 0rem 2rem 1rem;
-  margin-top: auto;
-  margin-bottom: auto;
-  align-items: center;
-  justify-content: end;
+  padding: 0.5rem 0rem 0.5rem 1rem;
 }
 
 .link-proj-container a {
@@ -160,23 +200,17 @@ export default {
 }
 
 .techs-proj-container {
-  padding: 0.5rem 0rem 0.5rem 1rem;
-  margin-top: auto;
-  margin-bottom: auto;
-  align-items: center;
-  justify-content: end;
+  padding: 1rem 0rem 0.5rem 1rem;
   font-size: small;
-  /* color: rgb(128, 128, 128); */
   color: var(--font-color-ligher);
 }
 
 .footer-proj-container {
   padding: 0.5rem 0rem 0.5rem 1rem;
-  justify-content: end;
-  margin-top: auto; /* Esta linha é importante para posicionar no final. */
-  align-items: center;
   font-size: small;
   border-top: 1px solid var(--border-color);
   color: var(--font-color-ligher);
+  display: flex;
+  flex-direction: row;
 }
 </style>

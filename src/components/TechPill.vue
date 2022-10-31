@@ -93,7 +93,7 @@ export default {
   padding: 0.25rem 0.5rem;
   border-radius: 10px;
   display: inline-block;
-  border: 1px solid var(--border-color-lighter);
+  border: 1px solid var(--border-color);
   margin-right: 0.2rem;
   margin-bottom: 0.4rem;
 }

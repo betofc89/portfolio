@@ -1,13 +1,30 @@
 <template>
-  <div class="modal-content">
-    <div class="modal-content-controls">
-      <div class="control-box">
+  <div class="configs-content">
+    <div class="configs-content-controls">
+      <div class="control-box row">
+        <span lang="en">Language</span>
+        <span lang="pt">Idioma</span>
+        <select
+          name="languages"
+          id="languagesSelect"
+          @change="changeLang"
+          style="margin-left: 0.5rem"
+        >
+          <option value="en">English</option>
+          <option value="pt">Português</option>
+        </select>
+      </div>
+      <div class="control-box row">
         <input type="checkbox" name="" id="cbShadow" @change="toggleShadow" />
-        <label for="cbShadow">Shadow</label>
+        <label for="cbShadow"
+          ><span lang="en">Shadow</span><span lang="pt">Sombra</span></label
+        >
         <div id="circle-attention"></div>
       </div>
-      <div class="control-box">
-        <span>Sun angle</span>
+
+      <div class="control-box column">
+        <span lang="en">Sun angle</span>
+        <span lang="pt">Ângulo do Sol</span>
         <div class="slidecontainer">
           <input
             type="range"
@@ -20,8 +37,9 @@
           />
         </div>
       </div>
-      <div class="control-box">
-        <span>Element elevation</span>
+      <div class="control-box column">
+        <span lang="en">Element elevation</span>
+        <span lang="pt">Elevação do elemento</span>
         <div class="slidecontainer">
           <input
             type="range"
@@ -34,17 +52,20 @@
           />
         </div>
       </div>
-      <div class="control-box">
+      <div class="control-box row">
         <input
           type="checkbox"
           name=""
           id="cbBorderRadius"
           @change="toggleBorderRadius"
         />
-        <label for="cbBorderRadius">Border radius</label>
+        <label for="cbBorderRadius"
+          ><span lang="en">Border radius</span
+          ><span lang="pt">Bordas arred.</span></label
+        >
       </div>
     </div>
-    <div class="modal-content-body">
+    <div class="configs-content-body">
       <div id="sun-path">
         <div id="sun-object" @click="toggleTheme"></div>
         <div id="angle-object"></div>
@@ -57,25 +78,67 @@
         </div>
       </div>
     </div>
-    <div class="modal-content-close-section">
+    <div class="configs-content-close-section">
       <div class="modal-close-button" @click="closeConfigs">Close</div>
     </div>
   </div>
 </template>
 
 <script>
+import ThemeSwitcher from "./ThemeSwitcher.vue";
+
 export default {
+  components: { ThemeSwitcher },
   mounted() {
     this.changeShadow();
     this.toggleShadow();
     this.toggleBorderRadius();
   },
+
   methods: {
+    changeLang(e) {
+      console.log(e.target.value);
+      this.setLanguage(e.target.value);
+    },
+
+    setLanguage(lang) {
+      let elementsToShow;
+      let elementsToHide;
+      if (lang == "pt") {
+        elementsToShow = document.querySelectorAll(`[lang="pt"]`);
+        elementsToHide = document.querySelectorAll(`[lang="en"]`);
+      } else {
+        elementsToShow = document.querySelectorAll(`[lang="en"]`);
+        elementsToHide = document.querySelectorAll(`[lang="pt"]`);
+      }
+      elementsToShow.forEach((el) => {
+        el.style.display = "block";
+      });
+      elementsToHide.forEach((el) => {
+        el.style.display = "none";
+      });
+    },
+
     closeConfigs() {
       this.$emit("close");
     },
+
+    getStyleSheetNumber() {
+      // Esta function serve para pegar o número da stylesheet que tem :root no início
+      let styleSheetNumber = 0;
+      for (let number = 0; number < document.styleSheets.length; number++) {
+        if (
+          document.styleSheets[number].cssRules[0].selectorText.substr(0, 5) ==
+          ":root"
+        ) {
+          styleSheetNumber = number;
+        }
+      }
+      return styleSheetNumber;
+    },
     changeShadow() {
-      const declaration = document.styleSheets[0].cssRules[0].style;
+      const declaration =
+        document.styleSheets[this.getStyleSheetNumber()].cssRules[0].style;
       let sliderShadow = document.getElementById("sliderShadow");
       let sunAngleRad = (sliderShadow.value / 180) * Math.PI;
 
@@ -108,7 +171,8 @@ export default {
       angleObject.innerHTML = sliderShadow.value + "\xB0";
     },
     toggleShadow() {
-      const declaration = document.styleSheets[0].cssRules[0].style;
+      const declaration =
+        document.styleSheets[this.getStyleSheetNumber()].cssRules[0].style;
       let sliderShadow = document.getElementById("sliderShadow");
       let sliderElevation = document.getElementById("sliderElementsElevation");
       let cbShadow = document.getElementById("cbShadow");
@@ -131,7 +195,8 @@ export default {
       }
     },
     toggleBorderRadius() {
-      const declaration = document.styleSheets[0].cssRules[0].style;
+      const declaration =
+        document.styleSheets[this.getStyleSheetNumber()].cssRules[0].style;
       let cbBorderRadius = document.getElementById("cbBorderRadius");
       if (cbBorderRadius.checked) {
         declaration.setProperty("--border-radius", "10px");
@@ -186,20 +251,18 @@ export default {
     },
     toggleTheme() {
       this.$emit("toggleTheme");
-      // const declaration = document.styleSheets[0].cssRules[0].style;
-      // declaration.setProperty("--primary-color", "red");
     },
   },
 };
 </script>
 
 <style>
-.modal-content {
+.configs-content {
   /* background: green; */
   width: 100%;
 }
 
-.modal-content-controls {
+.configs-content-controls {
   position: relative;
   /* margin: 0 auto; */
   /* background-color: red; */
@@ -219,8 +282,13 @@ export default {
   border-radius: var(--border-radius);
 }
 
-#cbShadow {
-  /* transition: 0.2s transform ease; */
+.control-box.row {
+  display: flex;
+  flex-direction: row;
+}
+.control-box.column {
+  display: flex;
+  flex-direction: column;
 }
 
 .tremer {
@@ -268,7 +336,7 @@ export default {
   /* z-index: -1; */
 }
 
-.modal-content-body {
+.configs-content-body {
   position: relative;
   display: flex;
   justify-content: center;
@@ -293,6 +361,7 @@ export default {
   border-radius: 50%;
   /* background-color: black; */
   background: var(--sun-icon) var(--sun-icon-bg-color);
+  /* background: url("../assets/img/sun-icon.svg") var(--sun-icon-bg-color); */
   /* background: url("./img/sun-icon.svg") radial-gradient(red, blue); */
   background-size: 1rem;
   background-repeat: no-repeat;
@@ -353,15 +422,16 @@ export default {
   padding: 5px;
   /* height: 15px; */
   width: 100%;
+  min-height: unset;
   line-height: unset;
   overflow: hidden;
   text-align: left;
   /* border-bottom-width: 2px; */
 }
 
-.modal-content-close-section {
+.configs-content-close-section {
   /* background: green; */
-  display: inline-block;
+  /* display: inline-block; */
   /* margin: 0 auto; */
   /* position: absolute; */
   width: 100%;
@@ -380,21 +450,11 @@ export default {
 
 .modal-close-button:hover {
   background-color: var(--modal-close-button-bg-color-hover);
+  cursor: pointer;
 }
 
 @media only screen and (max-width: 600px) {
   /* Se o tamanho da tela for menor que 600px. */
-  .modal-backdrop {
-    background-color: rgba(0, 0, 0, 0.75);
-  }
-
-  .modal-window {
-    width: 75%;
-    height: 100%;
-    top: 0px;
-    right: 0px;
-    padding: 5px;
-  }
 
   .control-box {
     /* display: flex; */
@@ -404,11 +464,6 @@ export default {
     padding: 1rem;
     width: 100%;
     vertical-align: middle;
-  }
-
-  .control-box input[type="checkbox"] {
-    /* width: 35px; */
-    /* height: 35px; */
   }
 
   /* #cbShadow::before {

@@ -1,7 +1,9 @@
 <template>
   <div id="navbar">
     <a href="#projects-section">
-      <div class="navbar-element">Projects</div>
+      <div class="navbar-element">
+        <span lang="en">Projects</span><span lang="pt">Projetos</span>
+      </div>
     </a>
 
     <a href="#bio-section">

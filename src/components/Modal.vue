@@ -7,7 +7,8 @@
         right: posH === 'right',
         left: posH === 'left',
         bottom: posV === 'bottom',
-        center: posH === 'auto' && posV === 'auto',
+        center: posH === 'center' && posV === 'center',
+        fillVert: fillVert === true,
       }"
     >
       <slot></slot>
@@ -17,7 +18,7 @@
 
 <script>
 export default {
-  props: ["posH", "posV", "modalCloseDelay"],
+  props: ["posH", "posV", "modalCloseDelay", "fillVert"],
   methods: {
     closeModal() {
       if (this.modalCloseDelay) {
@@ -31,21 +32,37 @@ export default {
 
 <style>
 .modal.right {
-  right: 10px;
+  right: 0px;
 }
 .modal.top {
-  top: 10px;
+  top: 0px;
 }
 .modal.left {
-  left: 10px;
+  left: 0px;
 }
 .modal.bottom {
-  bottom: 10px;
+  bottom: 0px;
 }
 .modal.center {
   position: relative;
   margin: auto;
   /* max-width: 500px; */
+}
+
+.modal {
+  background-color: var(--primary-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  position: absolute;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 20px;
+  z-index: var(--modal-window-z-index);
+}
+
+.modal.fillVert {
+  height: 100%;
 }
 
 .backdrop {
@@ -60,19 +77,5 @@ export default {
   width: 100%;
   height: 100%;
   z-index: var(--modal-backdrop-z-index);
-}
-
-.modal {
-  background-color: var(--primary-color);
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
-  position: absolute;
-  /* top: 10px;
-  right: 10px; */
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  padding: 20px;
-  z-index: var(--modal-window-z-index);
 }
 </style>

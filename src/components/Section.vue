@@ -1,7 +1,8 @@
 <template>
   <section :id="sectionId">
     <div class="section-stripe"></div>
-    <h1>{{ sectionTitle }}</h1>
+    <h1 lang="en">{{ sectionTitle.en }}</h1>
+    <h1 lang="pt">{{ sectionTitle.pt }}</h1>
     <slot> </slot>
   </section>
 </template>

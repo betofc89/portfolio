@@ -10,24 +10,16 @@
 <script>
 export default {
   methods: {
+    toggleSwitch() {
+      if (document.documentElement.classList.contains("dark-theme")) {
+        document.getElementById("cb-dark-theme").checked = true;
+      } else {
+        document.getElementById("cb-dark-theme").checked = false;
+      }
+    },
     toggleTheme() {
       this.$emit("toggleTheme");
     },
-    getUserThemePreference() {
-      if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-        this.initialTheme = "dark";
-        return "dark-theme";
-      } else {
-        return "light-theme";
-      }
-    },
-  },
-  mounted() {
-    if (this.getUserThemePreference == "dark-theme") {
-      document.getElementById("cb-dark-theme").checked = false;
-    } else {
-      document.getElementById("cb-dark-theme").checked = true;
-    }
   },
 };
 </script>
@@ -35,6 +27,7 @@ export default {
 <style>
 /* Peguei o código abaixo da seguinte página: */
 /* https://dev.to/ananyaneogi/create-a-dark-light-mode-switch-with-css-variables-34l8 */
+
 .theme-switch-wrapper {
   display: flex;
   align-items: center;
@@ -74,8 +67,8 @@ export default {
 
 .slider:before {
   background-color: #fff;
-  /* background-image: var(--sun-icon); */
-  background-image: url("../assets/img/sun-icon.svg");
+  background-image: var(--sun-icon);
+  /* background-image: url("../assets/img/sun-icon.svg"); */
   background-size: 1rem;
   background-repeat: no-repeat;
   background-position: center;
@@ -97,7 +90,8 @@ input:checked + .slider {
 }
 
 input:checked + .slider:before {
-  background-image: url("../assets/img/moon-icon.svg");
+  /* background-image: url("../assets/img/moon-icon.svg"); */
+  /* background-image: var(--sun-icon); */
   background-size: 1rem;
   background-repeat: no-repeat;
   background-position: center;
