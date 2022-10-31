@@ -260,7 +260,7 @@ export default {
           buttonlinks: [
             {
               text: "GitHub Repo",
-              href: "https://github.com/betofc89/betofc89.github.io",
+              href: "https://github.com/betofc89/portfolio",
             },
           ],
           techs: ["html", "css", "vuejs", "javascript"],
@@ -297,7 +297,7 @@ export default {
           buttonlinks: [
             {
               text: "GitHub Repo",
-              href: "https://github.com/betofc89/betofc89.github.io",
+              href: "https://github.com/betofc89/portfolio",
             },
           ],
           techs: ["html", "css", "vuejs", "javascript"],
