@@ -247,9 +247,6 @@ export default {
       initialTheme: "",
       themeChangesToLight: 0,
       memeImageLoaded: false,
-      boxShadowX: 0,
-      boxShadowY: 0,
-      boxShadowAlpha: 0,
       projects_en: [
         {
           name: "Culinary Recipes WebApp",
@@ -608,27 +605,19 @@ export default {
       this.showConfigs = !this.showConfigs;
       if (this.showConfigs) {
         document.body.classList.add("stop-scrolling");
-        /* document.body.style.height = "100%";
-        document.body.style.overflow = "hidden"; */
-        /* document.getElementById("main-wrap").style.height = "100%";
-        document.getElementById("main-wrap").style.overflow = "hidden"; */
       } else {
         document.body.classList.remove("stop-scrolling");
-        // document.body.style.height = "unset";
-        // document.body.style.overflow = "unset";
-        /* document.body.style.removeProperty("height");
-        document.body.style.removeProperty("overflow"); */
-        /* document.getElementById("main-wrap").style.removeProperty("height");
-        document.getElementById("main-wrap").style.removeProperty("overflow"); */
       }
     },
+
     setTheme(theme) {
       document.documentElement.className = theme;
     },
+
     toggleTheme() {
       if (document.documentElement.classList.contains("dark-theme")) {
         this.setTheme("light-theme");
-        // Só mostrar se o tema prefered for dark
+        // Só mostrar meme se o tema prefered for dark
         if (
           this.initialTheme == "dark" &&
           (this.themeChangesToLight == 0 ||
@@ -643,6 +632,7 @@ export default {
       }
       this.$refs.themeswitcher.toggleSwitch();
     },
+
     getUserThemePreference() {
       if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
         this.initialTheme = "dark";
@@ -651,26 +641,18 @@ export default {
         return "light-theme";
       }
     },
+
     memeClaraoGif() {
       this.showMemeClaraoGif = true;
       window.setTimeout(() => {
         this.showMemeClaraoGif = false;
       }, 1000);
     },
-    /* changeShadow(value) {
-      console.log(value);
-    }, */
+
     changeShadow(objValue) {
-      // const declaration = document.styleSheets[0].cssRules[0].style;
-      /* const declaration =
-        document.styleSheets[this.getStyleSheetNumber()].cssRules[0].style; */
       const declaration = document.querySelector(":root").style;
-      // let sliderShadow = document.getElementById("sliderShadow");
       let sunAngleRad = (objValue.sunAngleValue / 180) * Math.PI;
-
-      // let sliderElevation = document.getElementById("sliderElementsElevation");
       let elemElevation = objValue.elemElevationValue;
-
       let angleObject = document.getElementById("angle-object");
       let resultado = this.calculateValues(elemElevation, sunAngleRad);
 
@@ -693,24 +675,9 @@ export default {
         "--angle-object-position-y",
         resultado.angleObj_coordY + "px"
       );
-      // angleObject.innerHTML = sliderShadow.value + "\xB0";
       angleObject.innerHTML = objValue.sunAngleValue + "\xB0";
     },
 
-    getStyleSheetNumber() {
-      // Esta function serve para pegar o número da stylesheet que tem :root no início
-      let styleSheetNumber = 0;
-      for (let number = 0; number < document.styleSheets.length; number++) {
-        if (
-          document.styleSheets[number].cssRules[0].selectorText.substr(0, 5) ==
-          ":root"
-        ) {
-          styleSheetNumber = number;
-        }
-      }
-      console.log("getStyleSheetNumber => " + styleSheetNumber);
-      return styleSheetNumber;
-    },
     calculateValues(elElev, sunAng) {
       const sunPathRadius = getComputedStyle(
         document.documentElement
@@ -756,35 +723,8 @@ export default {
         angleObj_coordY,
       };
     },
-    /* toggleShadow() {
-      const declaration =
-        document.styleSheets[this.getStyleSheetNumber()].cssRules[0].style;
-      let sliderShadow = document.getElementById("sliderShadow");
-      let sliderElevation = document.getElementById("sliderElementsElevation");
-      let cbShadow = document.getElementById("cbShadow");
-      if (cbShadow.checked) {
-        console.log("cbShadow checked");
-        declaration.setProperty("--box-shadow-alpha", 1);
-        this.boxShadowAlpha = 1;
-        sliderShadow.disabled = false;
-        sliderElevation.disabled = false;
 
-        sliderShadow.classList.remove("inactive-slider");
-        sliderElevation.classList.remove("inactive-slider");
-      } else {
-        console.log("cbShadow unchecked");
-        declaration.setProperty("--box-shadow-alpha", 0);
-        this.boxShadowAlpha = 0;
-        sliderShadow.disabled = true;
-        sliderElevation.disabled = true;
-
-        sliderShadow.classList.add("inactive-slider");
-        sliderElevation.classList.add("inactive-slider");
-      }
-    }, */
     toggleShadow() {
-      /* const declaration =
-        document.styleSheets[this.getStyleSheetNumber()].cssRules[0].style; */
       const declaration = document.querySelector(":root").style;
       let sliderShadow = document.getElementById("sliderShadow");
       let sliderElevation = document.getElementById("sliderElementsElevation");
@@ -807,9 +747,8 @@ export default {
         sliderElevation.classList.add("inactive-slider");
       }
     },
+
     toggleBorderRadius() {
-      /* const declaration =
-        document.styleSheets[this.getStyleSheetNumber()].cssRules[0].style; */
       const declaration = document.querySelector(":root").style;
       let cbBorderRadius = document.getElementById("cbBorderRadius");
       if (cbBorderRadius.checked) {
@@ -838,8 +777,7 @@ export default {
   --element-header-bg-color-hover: rgb(51, 51, 51);
   --element-header-font-color: rgb(255, 255, 255);
 
-  /* --box-shadow-alpha: 1; */
-  --box-shadow-alpha: v-bind(boxShadowAlpha);
+  --box-shadow-alpha: 1;
   --box-shadow-color: rgba(128, 128, 128, var(--box-shadow-alpha));
   --box-shadow-x: 0px;
   --box-shadow-y: 0px;
