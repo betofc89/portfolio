@@ -661,8 +661,8 @@ export default {
 
   --box-shadow-alpha: 1;
   --box-shadow-color: rgba(128, 128, 128, var(--box-shadow-alpha));
-  --box-shadow-x: 5px;
-  --box-shadow-y: 5px;
+  --box-shadow-x: 0px;
+  --box-shadow-y: 0px;
   --box-shadow-blur-radius: 0px;
   --box-shadow-spread-radius: 0px;
   --section-stripe-box-shadow-color: rgba(128, 128, 128, 1);
