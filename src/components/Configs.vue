@@ -98,157 +98,25 @@ export default {
   methods: {
     changeLang(e) {
       console.log(e.target.value);
-      this.setLanguage(e.target.value);
-    },
-
-    setLanguage(lang) {
-      let elementsToShow;
-      let elementsToHide;
-      if (lang == "pt") {
-        elementsToShow = document.querySelectorAll(`[lang="pt"]`);
-        elementsToHide = document.querySelectorAll(`[lang="en"]`);
-      } else {
-        elementsToShow = document.querySelectorAll(`[lang="en"]`);
-        elementsToHide = document.querySelectorAll(`[lang="pt"]`);
-      }
-      elementsToShow.forEach((el) => {
-        el.style.display = "block";
-      });
-      elementsToHide.forEach((el) => {
-        el.style.display = "none";
-      });
+      this.$emit("changeLang", e.target.value);
     },
 
     closeConfigs() {
       this.$emit("close");
     },
 
-    getStyleSheetNumber() {
-      // Esta function serve para pegar o número da stylesheet que tem :root no início
-      let styleSheetNumber = 0;
-      for (let number = 0; number < document.styleSheets.length; number++) {
-        if (
-          document.styleSheets[number].cssRules[0].selectorText.substr(0, 5) ==
-          ":root"
-        ) {
-          styleSheetNumber = number;
-        }
-      }
-      return styleSheetNumber;
-    },
     changeShadow() {
-      const declaration =
-        document.styleSheets[this.getStyleSheetNumber()].cssRules[0].style;
-      let sliderShadow = document.getElementById("sliderShadow");
-      let sunAngleRad = (sliderShadow.value / 180) * Math.PI;
-
-      let sliderElevation = document.getElementById("sliderElementsElevation");
-      let elemElevation = sliderElevation.value;
-
-      let angleObject = document.getElementById("angle-object");
-      let resultado = this.calculateValues(elemElevation, sunAngleRad);
-      console.log(resultado);
-
-      declaration.setProperty("--box-shadow-x", resultado.coordX + "px");
-      declaration.setProperty("--box-shadow-y", resultado.coordY + "px");
-      declaration.setProperty(
-        "--sun-object-position-x",
-        resultado.sun_coordX + "px"
-      );
-      declaration.setProperty(
-        "--sun-object-position-y",
-        resultado.sun_coordY + "px"
-      );
-
-      declaration.setProperty(
-        "--angle-object-position-x",
-        resultado.angleObj_coordX + "px"
-      );
-      declaration.setProperty(
-        "--angle-object-position-y",
-        resultado.angleObj_coordY + "px"
-      );
-      angleObject.innerHTML = sliderShadow.value + "\xB0";
+      this.$emit("changeShadow");
     },
+
     toggleShadow() {
-      const declaration =
-        document.styleSheets[this.getStyleSheetNumber()].cssRules[0].style;
-      let sliderShadow = document.getElementById("sliderShadow");
-      let sliderElevation = document.getElementById("sliderElementsElevation");
-      let cbShadow = document.getElementById("cbShadow");
-      if (cbShadow.checked) {
-        console.log("cbShadow checked");
-        declaration.setProperty("--box-shadow-alpha", 1);
-        sliderShadow.disabled = false;
-        sliderElevation.disabled = false;
-
-        sliderShadow.classList.remove("inactive-slider");
-        sliderElevation.classList.remove("inactive-slider");
-      } else {
-        console.log("cbShadow unchecked");
-        declaration.setProperty("--box-shadow-alpha", 0);
-        sliderShadow.disabled = true;
-        sliderElevation.disabled = true;
-
-        sliderShadow.classList.add("inactive-slider");
-        sliderElevation.classList.add("inactive-slider");
-      }
+      this.$emit("toggleShadow");
     },
+
     toggleBorderRadius() {
-      const declaration =
-        document.styleSheets[this.getStyleSheetNumber()].cssRules[0].style;
-      let cbBorderRadius = document.getElementById("cbBorderRadius");
-      if (cbBorderRadius.checked) {
-        declaration.setProperty("--border-radius", "10px");
-      } else {
-        declaration.setProperty("--border-radius", "0px");
-      }
+      this.$emit("toggleBorderRadius");
     },
-    calculateValues(elElev, sunAng) {
-      const sunPathRadius = getComputedStyle(
-        document.documentElement
-      ).getPropertyValue("--sun-path-radius");
-      const sunObjRadius = getComputedStyle(
-        document.documentElement
-      ).getPropertyValue("--sun-object-radius");
-      // This function calculates the values of x and y coordinates
-      // of the box-shadow property. Since I want the sun following
-      // the standard trigonometric cycle, I multiplied the coordX to -1.
-      let coordX = elElev * Math.cos(sunAng).toFixed(2) * -1;
-      let coordY = elElev * Math.sin(sunAng).toFixed(2);
 
-      let sun_coordX =
-        parseInt(sunPathRadius) +
-        parseInt(sunPathRadius) * Math.cos(sunAng).toFixed(2) -
-        parseInt(sunObjRadius) -
-        1;
-      let sun_coordY =
-        parseInt(sunPathRadius) -
-        parseInt(sunPathRadius) * Math.sin(sunAng).toFixed(2) -
-        parseInt(sunObjRadius) -
-        1;
-
-      let angleObj_coordX =
-        parseInt(sunPathRadius) +
-        parseInt(sunPathRadius) * 0.65 * Math.cos(sunAng).toFixed(2) -
-        parseInt(sunObjRadius) -
-        1;
-
-      let angleObj_coordY =
-        parseInt(sunPathRadius) -
-        parseInt(sunPathRadius) * 0.65 * Math.sin(sunAng).toFixed(2) -
-        parseInt(sunObjRadius) -
-        1;
-
-      return {
-        coordX,
-        coordY,
-        sun_coordX,
-        sun_coordY,
-        angleObj_coordX,
-        angleObj_coordY,
-      };
-    },
     toggleTheme() {
       this.$emit("toggleTheme");
     },
