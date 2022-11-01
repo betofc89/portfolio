@@ -106,7 +106,11 @@ export default {
     },
 
     changeShadow() {
-      this.$emit("changeShadow");
+      let sunAngleValue = document.getElementById("sliderShadow").value;
+      let elemElevationValue = document.getElementById(
+        "sliderElementsElevation"
+      ).value;
+      this.$emit("changeShadow", { sunAngleValue, elemElevationValue });
     },
 
     toggleShadow() {

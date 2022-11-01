@@ -44,8 +44,8 @@ export default {
   ],
   components: { TechPill },
   mounted() {
-    console.log("created");
-    console.log(this.minheight);
+    // console.log("created");
+    // console.log(this.minheight);
     if (this.minheight == false) {
       // document.querySelectorAll(".body-proj-container").forEach((el) => {
       // el.style.minHeight = "unset";

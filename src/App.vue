@@ -32,8 +32,18 @@
   </Modal>
   <main>
     <div id="main-wrap">
-      <h1 id="page-title" lang="en">Roberto Cabral - Portfolio and Projects</h1>
-      <h1 id="page-title" lang="pt">Roberto Cabral - Portfolio e Projetos</h1>
+      <h1 id="page-title" lang="en">
+        Roberto Cabral<br /><span
+          style="font-size: 1.5rem; padding: 0; margin: 0"
+          >Portfolio and Projects</span
+        >
+      </h1>
+      <h1 id="page-title" lang="pt">
+        Roberto Cabral<br /><span
+          style="font-size: 1.5rem; padding: 0; margin: 0"
+          >Portfolio e Projetos</span
+        >
+      </h1>
 
       <Section
         :sectionId="'welcome-text'"
@@ -559,12 +569,11 @@ export default {
     this.setTheme(this.getUserThemePreference());
     this.$refs.themeswitcher.toggleSwitch();
     this.setLanguage(this.detectLanguage());
-    console.log("this.$language: " + this.$language);
   },
 
   methods: {
     detectLanguage() {
-      console.log(navigatorLanguages());
+      console.log("navigatorLanguages: " + navigatorLanguages());
       if (navigatorLanguages()[0].includes("pt")) {
         return "pt";
       } else {
@@ -573,7 +582,6 @@ export default {
     },
 
     setLanguage(lang) {
-      this.$language = lang;
       let elementsToShow;
       let elementsToHide;
       if (lang == "pt") {
@@ -646,18 +654,21 @@ export default {
         this.showMemeClaraoGif = false;
       }, 1000);
     },
-    changeShadow() {
+    /* changeShadow(value) {
+      console.log(value);
+    }, */
+    changeShadow(objValue) {
+      // const declaration = document.styleSheets[0].cssRules[0].style;
       const declaration =
         document.styleSheets[this.getStyleSheetNumber()].cssRules[0].style;
-      let sliderShadow = document.getElementById("sliderShadow");
-      let sunAngleRad = (sliderShadow.value / 180) * Math.PI;
+      // let sliderShadow = document.getElementById("sliderShadow");
+      let sunAngleRad = (objValue.sunAngleValue / 180) * Math.PI;
 
-      let sliderElevation = document.getElementById("sliderElementsElevation");
-      let elemElevation = sliderElevation.value;
+      // let sliderElevation = document.getElementById("sliderElementsElevation");
+      let elemElevation = objValue.elemElevationValue;
 
       let angleObject = document.getElementById("angle-object");
       let resultado = this.calculateValues(elemElevation, sunAngleRad);
-      console.log(resultado);
 
       declaration.setProperty("--box-shadow-x", resultado.coordX + "px");
       declaration.setProperty("--box-shadow-y", resultado.coordY + "px");
@@ -678,8 +689,10 @@ export default {
         "--angle-object-position-y",
         resultado.angleObj_coordY + "px"
       );
-      angleObject.innerHTML = sliderShadow.value + "\xB0";
+      // angleObject.innerHTML = sliderShadow.value + "\xB0";
+      angleObject.innerHTML = objValue.sunAngleValue + "\xB0";
     },
+
     getStyleSheetNumber() {
       // Esta function serve para pegar o número da stylesheet que tem :root no início
       let styleSheetNumber = 0;
@@ -691,6 +704,7 @@ export default {
           styleSheetNumber = number;
         }
       }
+      console.log("getStyleSheetNumber => " + styleSheetNumber);
       return styleSheetNumber;
     },
     calculateValues(elElev, sunAng) {
@@ -1003,9 +1017,10 @@ a.link-no-color {
 /* ------------------------------------- */
 
 h1#page-title {
-  padding: 1rem;
-  border-radius: 0.4rem;
+  padding: 0rem;
+  margin: 0;
   transition: 0.2s all ease-in-out;
+  letter-spacing: 0.33rem;
 }
 
 /* ------------------------------------- */
