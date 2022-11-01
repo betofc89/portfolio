@@ -247,6 +247,9 @@ export default {
       initialTheme: "",
       themeChangesToLight: 0,
       memeImageLoaded: false,
+      boxShadowX: 0,
+      boxShadowY: 0,
+      boxShadowAlpha: 0,
       projects_en: [
         {
           name: "Culinary Recipes WebApp",
@@ -659,8 +662,9 @@ export default {
     }, */
     changeShadow(objValue) {
       // const declaration = document.styleSheets[0].cssRules[0].style;
-      const declaration =
-        document.styleSheets[this.getStyleSheetNumber()].cssRules[0].style;
+      /* const declaration =
+        document.styleSheets[this.getStyleSheetNumber()].cssRules[0].style; */
+      const declaration = document.querySelector(":root").style;
       // let sliderShadow = document.getElementById("sliderShadow");
       let sunAngleRad = (objValue.sunAngleValue / 180) * Math.PI;
 
@@ -752,9 +756,36 @@ export default {
         angleObj_coordY,
       };
     },
-    toggleShadow() {
+    /* toggleShadow() {
       const declaration =
         document.styleSheets[this.getStyleSheetNumber()].cssRules[0].style;
+      let sliderShadow = document.getElementById("sliderShadow");
+      let sliderElevation = document.getElementById("sliderElementsElevation");
+      let cbShadow = document.getElementById("cbShadow");
+      if (cbShadow.checked) {
+        console.log("cbShadow checked");
+        declaration.setProperty("--box-shadow-alpha", 1);
+        this.boxShadowAlpha = 1;
+        sliderShadow.disabled = false;
+        sliderElevation.disabled = false;
+
+        sliderShadow.classList.remove("inactive-slider");
+        sliderElevation.classList.remove("inactive-slider");
+      } else {
+        console.log("cbShadow unchecked");
+        declaration.setProperty("--box-shadow-alpha", 0);
+        this.boxShadowAlpha = 0;
+        sliderShadow.disabled = true;
+        sliderElevation.disabled = true;
+
+        sliderShadow.classList.add("inactive-slider");
+        sliderElevation.classList.add("inactive-slider");
+      }
+    }, */
+    toggleShadow() {
+      /* const declaration =
+        document.styleSheets[this.getStyleSheetNumber()].cssRules[0].style; */
+      const declaration = document.querySelector(":root").style;
       let sliderShadow = document.getElementById("sliderShadow");
       let sliderElevation = document.getElementById("sliderElementsElevation");
       let cbShadow = document.getElementById("cbShadow");
@@ -777,8 +808,9 @@ export default {
       }
     },
     toggleBorderRadius() {
-      const declaration =
-        document.styleSheets[this.getStyleSheetNumber()].cssRules[0].style;
+      /* const declaration =
+        document.styleSheets[this.getStyleSheetNumber()].cssRules[0].style; */
+      const declaration = document.querySelector(":root").style;
       let cbBorderRadius = document.getElementById("cbBorderRadius");
       if (cbBorderRadius.checked) {
         declaration.setProperty("--border-radius", "10px");
@@ -806,7 +838,8 @@ export default {
   --element-header-bg-color-hover: rgb(51, 51, 51);
   --element-header-font-color: rgb(255, 255, 255);
 
-  --box-shadow-alpha: 1;
+  /* --box-shadow-alpha: 1; */
+  --box-shadow-alpha: v-bind(boxShadowAlpha);
   --box-shadow-color: rgba(128, 128, 128, var(--box-shadow-alpha));
   --box-shadow-x: 0px;
   --box-shadow-y: 0px;

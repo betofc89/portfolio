@@ -81,6 +81,7 @@
     <div class="configs-content-close-section">
       <div class="modal-close-button" @click="closeConfigs">Close</div>
     </div>
+    <p class="text">asoidfjasoidjfasoidjasodijaosidjasodfijasdoifj</p>
   </div>
 </template>
 
@@ -88,11 +89,23 @@
 import ThemeSwitcher from "./ThemeSwitcher.vue";
 
 export default {
+  data() {
+    return {
+      color: "red",
+    };
+  },
   components: { ThemeSwitcher },
   mounted() {
     this.changeShadow();
     this.toggleShadow();
     this.toggleBorderRadius();
+
+    const name = "Roberto";
+    if (name == "Roberto") {
+      this.color = "blue";
+    } else {
+      this.color = "red";
+    }
   },
 
   methods: {
@@ -129,6 +142,10 @@ export default {
 </script>
 
 <style scoped>
+.text {
+  color: v-bind(color);
+}
+
 .configs-content {
   /* background: green; */
   width: 100%;
