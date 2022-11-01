@@ -77,7 +77,7 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 .tech-icon-logo {
   margin-right: 0rem;
   filter: opacity(0.75) saturate(0);

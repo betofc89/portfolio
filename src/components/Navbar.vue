@@ -20,7 +20,7 @@
 export default {};
 </script>
 
-<style>
+<style scoped>
 #navbar {
   position: sticky;
   top: 5px;

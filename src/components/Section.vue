@@ -13,7 +13,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .section-stripe {
   width: 25%;
   background: linear-gradient(

@@ -6,7 +6,7 @@
 export default {};
 </script>
 
-<style>
+<style scoped>
 /* CONFIG BUTTON */
 
 .config-button {

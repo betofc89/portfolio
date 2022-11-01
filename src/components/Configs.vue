@@ -128,7 +128,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .configs-content {
   /* background: green; */
   width: 100%;
@@ -302,10 +302,6 @@ export default {
 }
 
 .configs-content-close-section {
-  /* background: green; */
-  /* display: inline-block; */
-  /* margin: 0 auto; */
-  /* position: absolute; */
   width: 100%;
 }
 
@@ -329,28 +325,10 @@ export default {
   /* Se o tamanho da tela for menor que 600px. */
 
   .control-box {
-    /* display: flex; */
-    /* flex-direction: row; */
-    /* justify-content: center; */
-    /* align-items: center; */
     padding: 1rem;
     width: 100%;
     vertical-align: middle;
   }
-
-  /* #cbShadow::before {
-    background-image: url("./img/arrow-right.svg");
-    background-size: 50px 50px;
-    display: inline-block;
-    width: 50px;
-    height: 50px;
-    content: "";
-    margin-left: -30px;
-
-    filter: invert(31%) sepia(95%) saturate(7472%) hue-rotate(358deg)
-      brightness(96%) contrast(123%);
-    vertical-align: middle;
-  } */
 
   #sliderShadow,
   #sliderElementsElevation {
