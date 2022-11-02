@@ -57,7 +57,7 @@ export default {
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  padding: 20px;
+  /* padding: 20px; */
   z-index: var(--modal-window-z-index);
 }
 

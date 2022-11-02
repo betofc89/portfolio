@@ -1,6 +1,16 @@
 <template>
-  <ConfigButton @click="toggleConfigs" />
   <ThemeSwitcher @toggleTheme="toggleTheme" ref="themeswitcher" />
+  <ConfigButton @click="toggleConfigs" />
+  <!-- <Sidenav ref="sidenav" @close="toggleSidenav">
+    <Configs
+      @changeLang="setLanguage"
+      @toggleShadow="toggleShadow"
+      @changeShadow="changeShadow"
+      @toggleBorderRadius="toggleBorderRadius"
+      @toggleTheme="toggleTheme"
+      @close="toggleSidenav"
+    />
+  </Sidenav> -->
   <Modal
     v-show="showConfigs"
     @close="toggleConfigs"
@@ -11,9 +21,6 @@
     <Configs
       @close="toggleConfigs"
       @toggleTheme="toggleTheme"
-      @changeShadow="changeShadow"
-      @toggleShadow="toggleShadow"
-      @toggleBorderRadius="toggleBorderRadius"
       @changeLang="setLanguage"
     />
   </Modal>
@@ -28,6 +35,7 @@
       v-show="showMemeClaraoGif"
       :src="memeImageURL"
       style="user-select: none"
+      id="memeClaraoGif"
     />
   </Modal>
   <main>
@@ -125,6 +133,7 @@
       >
         <p lang="en">Projects related to web development.</p>
         <p lang="pt">Projetos relacionados ao desenvolvimento web.</p>
+
         <div class="cont-projects">
           <ProjectContainer
             v-for="project in projects_pt_br"
@@ -136,8 +145,7 @@
             :minheight="true"
             lang="pt"
           />
-        </div>
-        <div class="cont-projects">
+
           <ProjectContainer
             v-for="project in projects_en"
             :project-title="project.name"
@@ -224,6 +232,7 @@ import Section from "./components/Section.vue";
 import Configs from "./components/Configs.vue";
 import ConfigButton from "./components/ConfigButton.vue";
 import ThemeSwitcher from "./components/ThemeSwitcher.vue";
+import Sidenav from "./components/Sidenav.vue";
 
 const navigatorLanguages = require("navigator-languages");
 
@@ -237,11 +246,13 @@ export default {
     Configs,
     ConfigButton,
     ThemeSwitcher,
+    Sidenav,
   },
   data() {
     return {
       publicPath: process.env.BASE_URL,
       showConfigs: false,
+      showSidenav: false,
       showMemeClaraoGif: false,
       memeImageURL: null,
       initialTheme: "",
@@ -558,6 +569,10 @@ export default {
     };
   },
   mounted() {
+    console.log(window.innerWidth);
+    console.log(window.innerHeight);
+
+    console.log("this.showSidenav: " + this.showSidenav);
     const memeImage = new Image();
     memeImage.src = require("./assets/img/meme-cortina-clarao.gif");
     memeImage.onload = () => {
@@ -569,9 +584,32 @@ export default {
     this.setTheme(this.getUserThemePreference());
     this.$refs.themeswitcher.toggleSwitch();
     this.setLanguage(this.detectLanguage());
+
+    this.changeMemeWidth();
   },
 
   methods: {
+    changeMemeWidth() {
+      const declaration = document.querySelector(":root").style;
+      console.log(
+        "setando --width-meme-smartphone para 90% de " +
+          window.innerWidth +
+          "px."
+      );
+      declaration.setProperty(
+        "--width-meme-smartphone",
+        Math.trunc(window.innerWidth * 0.9) + "px"
+      );
+      // console.log(getComputedStyle(document.querySelector(":root")));
+      console.log(
+        "--width-meme-smartphone: " +
+          getComputedStyle(document.documentElement).getPropertyValue(
+            "--width-meme-smartphone"
+          )
+      );
+      // console.log(declaration.getPropertyValue("--width-meme-smartphone"));
+    },
+
     detectLanguage() {
       console.log("navigatorLanguages: " + navigatorLanguages());
       if (navigatorLanguages()[0].includes("pt")) {
@@ -607,6 +645,16 @@ export default {
         document.body.classList.add("stop-scrolling");
       } else {
         document.body.classList.remove("stop-scrolling");
+      }
+    },
+
+    toggleSidenav() {
+      console.log("this.showSidenav: " + this.showSidenav);
+      this.showSidenav = !this.showSidenav;
+      if (this.showSidenav) {
+        this.$refs.sidenav.showSidenav();
+      } else {
+        this.$refs.sidenav.closeSidenav();
       }
     },
 
@@ -647,115 +695,6 @@ export default {
       window.setTimeout(() => {
         this.showMemeClaraoGif = false;
       }, 1000);
-    },
-
-    changeShadow(objValue) {
-      const declaration = document.querySelector(":root").style;
-      let sunAngleRad = (objValue.sunAngleValue / 180) * Math.PI;
-      let elemElevation = objValue.elemElevationValue;
-      let angleObject = document.getElementById("angle-object");
-      let resultado = this.calculateValues(elemElevation, sunAngleRad);
-
-      declaration.setProperty("--box-shadow-x", resultado.coordX + "px");
-      declaration.setProperty("--box-shadow-y", resultado.coordY + "px");
-      declaration.setProperty(
-        "--sun-object-position-x",
-        resultado.sun_coordX + "px"
-      );
-      declaration.setProperty(
-        "--sun-object-position-y",
-        resultado.sun_coordY + "px"
-      );
-
-      declaration.setProperty(
-        "--angle-object-position-x",
-        resultado.angleObj_coordX + "px"
-      );
-      declaration.setProperty(
-        "--angle-object-position-y",
-        resultado.angleObj_coordY + "px"
-      );
-      angleObject.innerHTML = objValue.sunAngleValue + "\xB0";
-    },
-
-    calculateValues(elElev, sunAng) {
-      const sunPathRadius = getComputedStyle(
-        document.documentElement
-      ).getPropertyValue("--sun-path-radius");
-      const sunObjRadius = getComputedStyle(
-        document.documentElement
-      ).getPropertyValue("--sun-object-radius");
-      // This function calculates the values of x and y coordinates
-      // of the box-shadow property. Since I want the sun following
-      // the standard trigonometric cycle, I multiplied the coordX to -1.
-      let coordX = elElev * Math.cos(sunAng).toFixed(2) * -1;
-      let coordY = elElev * Math.sin(sunAng).toFixed(2);
-
-      let sun_coordX =
-        parseInt(sunPathRadius) +
-        parseInt(sunPathRadius) * Math.cos(sunAng).toFixed(2) -
-        parseInt(sunObjRadius) -
-        1;
-      let sun_coordY =
-        parseInt(sunPathRadius) -
-        parseInt(sunPathRadius) * Math.sin(sunAng).toFixed(2) -
-        parseInt(sunObjRadius) -
-        1;
-
-      let angleObj_coordX =
-        parseInt(sunPathRadius) +
-        parseInt(sunPathRadius) * 0.65 * Math.cos(sunAng).toFixed(2) -
-        parseInt(sunObjRadius) -
-        1;
-
-      let angleObj_coordY =
-        parseInt(sunPathRadius) -
-        parseInt(sunPathRadius) * 0.65 * Math.sin(sunAng).toFixed(2) -
-        parseInt(sunObjRadius) -
-        1;
-
-      return {
-        coordX,
-        coordY,
-        sun_coordX,
-        sun_coordY,
-        angleObj_coordX,
-        angleObj_coordY,
-      };
-    },
-
-    toggleShadow() {
-      const declaration = document.querySelector(":root").style;
-      let sliderShadow = document.getElementById("sliderShadow");
-      let sliderElevation = document.getElementById("sliderElementsElevation");
-      let cbShadow = document.getElementById("cbShadow");
-      if (cbShadow.checked) {
-        console.log("cbShadow checked");
-        declaration.setProperty("--box-shadow-alpha", 1);
-        sliderShadow.disabled = false;
-        sliderElevation.disabled = false;
-
-        sliderShadow.classList.remove("inactive-slider");
-        sliderElevation.classList.remove("inactive-slider");
-      } else {
-        console.log("cbShadow unchecked");
-        declaration.setProperty("--box-shadow-alpha", 0);
-        sliderShadow.disabled = true;
-        sliderElevation.disabled = true;
-
-        sliderShadow.classList.add("inactive-slider");
-        sliderElevation.classList.add("inactive-slider");
-      }
-    },
-
-    toggleBorderRadius() {
-      const declaration = document.querySelector(":root").style;
-      let cbBorderRadius = document.getElementById("cbBorderRadius");
-      if (cbBorderRadius.checked) {
-        declaration.setProperty("--border-radius", "10px");
-      } else {
-        declaration.setProperty("--border-radius", "0px");
-      }
     },
   },
 };
@@ -832,6 +771,8 @@ export default {
   --config-button-z-index: 3;
   --modal-backdrop-z-index: 4;
   --modal-window-z-index: 5;
+
+  --width-meme-smartphone: 0px;
 }
 
 /* [data-theme="dark"] { */
@@ -850,7 +791,7 @@ export default {
   --element-header-font-color: rgb(255, 255, 255);
 
   /* --box-shadow-alpha: 1; */
-  --box-shadow-color: rgba(64, 64, 64, var(--box-shadow-alpha));
+  --box-shadow-color: rgba(16, 16, 16, var(--box-shadow-alpha));
   /* --box-shadow-x: 0px; */
   /* --box-shadow-y: 5px; */
   /* --box-shadow-blur-radius: 3px; */
@@ -906,6 +847,13 @@ export default {
 [lang="pt"] {
 }
 
+@media only screen and (max-width: 400px) {
+  #memeClaraoGif {
+    width: var(--width-meme-smartphone);
+    height: calc((371 / 498) * var(--width-meme-smartphone) px);
+  }
+}
+
 .stop-scrolling {
   /* This class avoids scrolling of the screen. */
   height: 100%;
@@ -946,7 +894,7 @@ section {
   margin-top: 3rem;
 }
 
-section p {
+section > p {
   line-height: 1.75rem;
 }
 

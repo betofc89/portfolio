@@ -84,7 +84,7 @@ export default {
   transition: 0.2s all ease-in-out;
   width: 16px;
   height: 16px;
-  filter: opacity(0.75) saturate(0);
+  filter: opacity(0.75) saturate(1);
   vertical-align: middle;
 }
 

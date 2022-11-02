@@ -21,8 +21,8 @@
           <TechPill v-for="tech in techs" :techKey="tech" />
         </div>
         <div v-if="updated" class="footer-proj-container">
-          <span lang="en">Updated: &nbsp;</span>
-          <span lang="pt">Atualizado: &nbsp;</span><span> {{ updated }}</span>
+          <span lang="en">Updated:&nbsp;</span>
+          <span lang="pt">Atualizado:&nbsp;</span><span> {{ updated }}</span>
         </div>
       </div>
     </div>
@@ -61,7 +61,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .proj-container {
   max-width: 372px;
 
@@ -77,6 +77,8 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+
+  user-select: none;
 }
 
 @media only screen and (max-width: 668px) {
@@ -105,13 +107,6 @@ export default {
       var(--thematic-gradient-color-2)
     )
     1;
-}
-
-.proj-container:hover .tech-icon-logo {
-  filter: opacity(0.75) saturate(1);
-}
-
-.proj-container:hover .header-proj-container {
   background-color: var(--element-header-bg-color-hover);
 }
 
@@ -148,6 +143,7 @@ export default {
   text-align: justify;
 
   /* border: 3px solid orange; */
+  line-height: 1.75rem;
 }
 .under-body-proj-container {
   /* display: flex;

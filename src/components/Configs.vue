@@ -4,12 +4,7 @@
       <div class="control-box row">
         <span lang="en">Language</span>
         <span lang="pt">Idioma</span>
-        <select
-          name="languages"
-          id="languagesSelect"
-          @change="changeLang"
-          style="margin-left: 0.5rem"
-        >
+        <select name="languages" id="languagesSelect" @change="changeLang">
           <option value="en">English</option>
           <option value="pt">Português</option>
         </select>
@@ -79,7 +74,9 @@
       </div>
     </div>
     <div class="configs-content-close-section">
-      <div class="modal-close-button" @click="closeConfigs">Close</div>
+      <div class="modal-close-button" @click="closeConfigs">
+        <span lang="en">Close</span><span lang="pt">Fechar</span>
+      </div>
     </div>
   </div>
 </template>
@@ -101,8 +98,29 @@ export default {
       this.$emit("changeLang", e.target.value);
     },
 
-    closeConfigs() {
-      this.$emit("close");
+    toggleShadow() {
+      // this.$emit("toggleShadow");
+      const declaration = document.querySelector(":root").style;
+      let sliderShadow = document.getElementById("sliderShadow");
+      let sliderElevation = document.getElementById("sliderElementsElevation");
+      let cbShadow = document.getElementById("cbShadow");
+      if (cbShadow.checked) {
+        console.log("cbShadow checked");
+        declaration.setProperty("--box-shadow-alpha", 1);
+        sliderShadow.disabled = false;
+        sliderElevation.disabled = false;
+
+        sliderShadow.classList.remove("inactive-slider");
+        sliderElevation.classList.remove("inactive-slider");
+      } else {
+        console.log("cbShadow unchecked");
+        declaration.setProperty("--box-shadow-alpha", 0);
+        sliderShadow.disabled = true;
+        sliderElevation.disabled = true;
+
+        sliderShadow.classList.add("inactive-slider");
+        sliderElevation.classList.add("inactive-slider");
+      }
     },
 
     changeShadow() {
@@ -110,36 +128,119 @@ export default {
       let elemElevationValue = document.getElementById(
         "sliderElementsElevation"
       ).value;
-      this.$emit("changeShadow", { sunAngleValue, elemElevationValue });
+      // this.$emit("changeShadow", { sunAngleValue, elemElevationValue });
+      const declaration = document.querySelector(":root").style;
+      let sunAngleRad = (sunAngleValue / 180) * Math.PI;
+      let elemElevation = elemElevationValue;
+      let angleObject = document.getElementById("angle-object");
+      let resultado = this.calculateValues(elemElevation, sunAngleRad);
+
+      declaration.setProperty("--box-shadow-x", resultado.coordX + "px");
+      declaration.setProperty("--box-shadow-y", resultado.coordY + "px");
+      declaration.setProperty(
+        "--box-shadow-blur-radius",
+        resultado.blurRadius + "px"
+      );
+      declaration.setProperty(
+        "--sun-object-position-x",
+        resultado.sun_coordX + "px"
+      );
+      declaration.setProperty(
+        "--sun-object-position-y",
+        resultado.sun_coordY + "px"
+      );
+
+      declaration.setProperty(
+        "--angle-object-position-x",
+        resultado.angleObj_coordX + "px"
+      );
+      declaration.setProperty(
+        "--angle-object-position-y",
+        resultado.angleObj_coordY + "px"
+      );
+      angleObject.innerHTML = sunAngleValue + "\xB0";
     },
 
-    toggleShadow() {
-      this.$emit("toggleShadow");
+    calculateValues(elElev, sunAng) {
+      const sunPathRadius = getComputedStyle(
+        document.documentElement
+      ).getPropertyValue("--sun-path-radius");
+      const sunObjRadius = getComputedStyle(
+        document.documentElement
+      ).getPropertyValue("--sun-object-radius");
+      // This function calculates the values of x and y coordinates
+      // of the box-shadow property. Since I want the sun following
+      // the standard trigonometric cycle, I multiplied the coordX to -1.
+      let coordX = elElev * Math.cos(sunAng).toFixed(2) * -1;
+      let coordY = elElev * Math.sin(sunAng).toFixed(2);
+
+      let blurRadius = elElev * (1 / 3);
+
+      let sun_coordX =
+        parseInt(sunPathRadius) +
+        parseInt(sunPathRadius) * Math.cos(sunAng).toFixed(2) -
+        parseInt(sunObjRadius) -
+        1;
+      let sun_coordY =
+        parseInt(sunPathRadius) -
+        parseInt(sunPathRadius) * Math.sin(sunAng).toFixed(2) -
+        parseInt(sunObjRadius) -
+        1;
+
+      let angleObj_coordX =
+        parseInt(sunPathRadius) +
+        parseInt(sunPathRadius) * 0.65 * Math.cos(sunAng).toFixed(2) -
+        parseInt(sunObjRadius) -
+        1;
+
+      let angleObj_coordY =
+        parseInt(sunPathRadius) -
+        parseInt(sunPathRadius) * 0.65 * Math.sin(sunAng).toFixed(2) -
+        parseInt(sunObjRadius) -
+        1;
+
+      return {
+        coordX,
+        coordY,
+        blurRadius,
+        sun_coordX,
+        sun_coordY,
+        angleObj_coordX,
+        angleObj_coordY,
+      };
     },
 
     toggleBorderRadius() {
-      this.$emit("toggleBorderRadius");
+      const declaration = document.querySelector(":root").style;
+      let cbBorderRadius = document.getElementById("cbBorderRadius");
+      if (cbBorderRadius.checked) {
+        declaration.setProperty("--border-radius", "10px");
+      } else {
+        declaration.setProperty("--border-radius", "0px");
+      }
     },
 
     toggleTheme() {
       this.$emit("toggleTheme");
+    },
+
+    closeConfigs() {
+      this.$emit("close");
     },
   },
 };
 </script>
 
 <style scoped>
-.text {
-  color: v-bind(color);
-}
-
 .configs-content {
+  padding: 1rem;
+  user-select: none;
   /* background: green; */
-  width: 100%;
+  /* width: 100%; */
 }
 
 .configs-content-controls {
-  position: relative;
+  /* position: relative; */
   /* margin: 0 auto; */
   /* background-color: red; */
   display: flex;
@@ -154,7 +255,7 @@ export default {
 .control-box {
   /* background-color: var(--navbar-bg-color); */
   background-color: var(--element-bg-color);
-  padding: 0.5rem;
+  padding: 1rem 0.5rem;
   border-radius: var(--border-radius);
 }
 
@@ -162,9 +263,22 @@ export default {
   display: flex;
   flex-direction: row;
 }
+.control-box.row > select {
+  margin-left: 0.5rem;
+}
+
+.control-box.row > input[type="checkbox"] {
+  margin-right: 0.5rem;
+}
+
 .control-box.column {
   display: flex;
   flex-direction: column;
+}
+
+.slidecontainer input {
+  margin-top: 0.5rem;
+  width: 100%;
 }
 
 .tremer {
@@ -361,9 +475,5 @@ export default {
     background: grey !important;
     cursor: not-allowed;
   }
-}
-
-.slidecontainer input {
-  width: 100%;
 }
 </style>
