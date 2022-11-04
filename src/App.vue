@@ -49,7 +49,7 @@
       <h1 id="page-title" lang="pt">
         Roberto Cabral<br /><span
           style="font-size: 1.5rem; padding: 0; margin: 0"
-          >Portfolio e Projetos</span
+          >Portfólio e Projetos</span
         >
       </h1>
 
@@ -58,13 +58,12 @@
         :sectionTitle="{ en: 'Welcome', pt: 'Bem-vindo' }"
       >
         <p lang="en">
-          In this page you will find my projects, a little about me (bio), and
-          also a misc section with other projects I'm involved.<br />
+          In this page you will find my projects, a little about me, and also a
+          misc section with other projects I'm involved.<br />
         </p>
         <p lang="pt">
-          Nesta página você encontrará meus projetos, um pouco sobre mim (bio),
-          e também uma seção misc com outros projetos não relacionados
-          (necessariamente) ao desenvolvimento web.<br />
+          Nesta página você encontrará meus projetos, um pouco sobre mim, e
+          também uma seção com outros projetos.<br />
         </p>
         <p lang="en">
           Feel free to get in touch through my
@@ -94,26 +93,26 @@
             href="mailto:roberto.de.freitas.cabral@outlook.com"
             class="subtle-link"
             >e-mail</a
-          >. Estou aberto à ofertas de emprego.
+          >. Estou aberto a ofertas de emprego.
         </p>
         <p lang="en">
           This page is also available in
-          <span @click="setLanguage('pt')" class="subtle-link"
+          <a @click="setLanguage('pt')" class="subtle-link flag-link"
             >portuguese
-            <img
+            <!-- <img
               src="./assets/img/brazil-flag-twitter.svg"
               style="width: 1rem; height: 1rem"
-            /> </span
+            /> --> </a
           >.
         </p>
         <p lang="pt">
           Esta página também está disponível em
-          <span @click="setLanguage('en')" class="subtle-link"
+          <a @click="setLanguage('en')" class="subtle-link flag-link"
             >inglês
-            <img
+            <!-- <img
               src="./assets/img/gb-flag-twitter.svg"
               style="width: 1rem; height: 1rem"
-            /> </span
+            /> --> </a
           >.
         </p>
         <p lang="en">
@@ -161,7 +160,7 @@
 
       <Section
         :sectionId="'bio-section'"
-        :sectionTitle="{ en: 'Bio', pt: 'Bio' }"
+        :sectionTitle="{ en: 'Bio', pt: 'Sobre' }"
       >
         <div class="cont-projects">
           <ProjectContainer
@@ -183,11 +182,10 @@
 
       <Section
         :sectionId="'misc-section'"
-        :sectionTitle="{ en: 'Misc', pt: 'Misc' }"
+        :sectionTitle="{ en: 'Misc', pt: 'Outros' }"
       >
         <p lang="en">
-          Parallel and past projects, hobbies, and other interesting things I'm
-          involved with.
+          Parallel and past projects, hobbies, and other interesting things.
         </p>
         <p lang="pt">
           Projetos paralelos ou anteriores, hobbies, e outras coisas
@@ -641,11 +639,11 @@ export default {
 
     toggleConfigs() {
       this.showConfigs = !this.showConfigs;
-      if (this.showConfigs) {
+      /* if (this.showConfigs) {
         document.body.classList.add("stop-scrolling");
       } else {
         document.body.classList.remove("stop-scrolling");
-      }
+      } */
     },
 
     toggleSidenav() {
@@ -906,6 +904,7 @@ span.subtle-link {
   text-decoration: none;
   border-bottom: 1px dashed grey;
   cursor: pointer;
+  display: inline-block;
 }
 
 a.subtle-link:hover,
@@ -929,10 +928,31 @@ a.external-link:hover:after {
   background-color: var(--font-color-hover);
 }
 
+a.flag-link:after {
+  /* background-color: var(--font-color); */
+  content: "";
+  display: inline-flex;
+  /* height: 0.6rem;
+  width: 0.6rem; */
+}
+
+p[lang="en"] > a.flag-link:after {
+  background-image: url(./assets/img/brazil-flag-twitter.svg);
+  height: 0.8rem;
+  width: 0.8rem;
+}
+
+p[lang="pt"] > a.flag-link:after {
+  background-image: url(./assets/img/gb-flag-twitter.svg);
+  height: 0.8rem;
+  width: 0.8rem;
+}
+
 a.link-no-color {
   color: gray;
   /* text-decoration: none; */
 }
+
 /* ------------------------------------- */
 
 h1#page-title {

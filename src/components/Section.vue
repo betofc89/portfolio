@@ -23,8 +23,8 @@ export default {
   );
   height: 10px;
   /* box-shadow: 3px 3px var(--section-stripe-box-shadow-color); */
-  box-shadow: var(--box-shadow-x) var(--box-shadow-y)
+  /* box-shadow: var(--box-shadow-x) var(--box-shadow-y)
     var(--box-shadow-blur-radius) var(--box-shadow-spread-radius)
-    var(--box-shadow-color);
+    var(--box-shadow-color); */
 }
 </style>

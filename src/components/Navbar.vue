@@ -7,11 +7,15 @@
     </a>
 
     <a href="#bio-section">
-      <div class="navbar-element">Bio</div>
+      <div class="navbar-element">
+        <span lang="en">Bio</span><span lang="pt">Sobre</span>
+      </div>
     </a>
 
     <a href="#misc-section">
-      <div class="navbar-element">Misc</div>
+      <div class="navbar-element">
+        <span lang="en">Misc</span><span lang="pt">Outros</span>
+      </div>
     </a>
   </div>
 </template>
@@ -62,6 +66,8 @@ export default {};
     )
     1;
   border-bottom-left-radius: 0.2rem;
+
+  user-select: none;
 }
 
 @media only screen and (max-width: 400px) {

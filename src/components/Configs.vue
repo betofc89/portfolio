@@ -1,5 +1,5 @@
 <template>
-  <div class="configs-content">
+  <div class="configs-content" @mousewheel.prevent>
     <div class="configs-content-controls">
       <div class="control-box row">
         <span lang="en">Language</span>
@@ -17,10 +17,10 @@
         <div id="circle-attention"></div>
       </div>
 
-      <div class="control-box column">
+      <div class="control-box column" @mousewheel="mousewheelChangeAngle">
         <span lang="en">Sun angle</span>
         <span lang="pt">Ângulo do Sol</span>
-        <div class="slidecontainer">
+        <div class="slidecontainer" @click="checkShadow">
           <input
             type="range"
             min="0"
@@ -32,10 +32,10 @@
           />
         </div>
       </div>
-      <div class="control-box column">
+      <div class="control-box column" @mousewheel="mousewheelChangeElevation">
         <span lang="en">Element elevation</span>
         <span lang="pt">Elevação do elemento</span>
-        <div class="slidecontainer">
+        <div class="slidecontainer" @click="checkShadow">
           <input
             type="range"
             min="0"
@@ -60,11 +60,25 @@
         >
       </div>
     </div>
-    <div class="configs-content-body">
-      <div id="sun-path">
-        <div id="sun-object" @click="toggleTheme"></div>
-        <div id="angle-object"></div>
-        <div id="square-shadow">
+    <div
+      class="configs-content-body"
+      @mousewheel.self.prevent="mousewheelChangeAngle"
+    >
+      <div
+        id="sun-path"
+        @mousewheel.self.prevent="mousewheelChangeAngle"
+        @click.self="changeSunPosition"
+      >
+        <div
+          id="sun-object"
+          @click="toggleTheme"
+          @mousewheel.self.prevent="mousewheelChangeAngle"
+        ></div>
+        <div
+          id="angle-object"
+          @mousewheel.self.prevent="mousewheelChangeAngle"
+        ></div>
+        <div id="square-shadow" @mousewheel="mousewheelChangeElevation">
           <div class="header-proj-container">Lorem Ipsum</div>
           <div class="body-proj-container">
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Numquam
@@ -93,13 +107,195 @@ export default {
   },
 
   methods: {
+    changeSunPosition(e) {
+      let result = this.convertCoords(e.offsetX, e.offsetY);
+      let cbShadow = document.getElementById("cbShadow");
+      console.log("(x, y) = " + "(" + result.x + ", " + result.y + ")");
+
+      console.log("seno = " + this.calcSeno(result.x, result.y));
+      console.log(
+        "arcsen = " +
+          Math.asin(this.calcSeno(result.x, result.y)) +
+          " = " +
+          (Math.asin(this.calcSeno(result.x, result.y)) * 180) / Math.PI +
+          " = " +
+          this.getAngulo(result.x, result.y) +
+          " graus."
+      );
+      console.log(
+        "getNearestMultiple -> " +
+          this.getNearestMultiple(this.getAngulo(result.x, result.y))
+      );
+      console.log("Quadrante: " + this.getNumQuadrante(result.x, result.y));
+      console.log("----------------------------");
+
+      let sliderShadow = document.getElementById("sliderShadow");
+
+      if (cbShadow.checked) {
+        sliderShadow.value = this.getNearestMultiple(
+          this.getAngulo(result.x, result.y)
+        );
+        this.changeShadow();
+      } else {
+        this.checkShadow();
+      }
+
+      /* let deresult = this.coordsToCirclePath(result.x, result.y);
+      console.log(
+        "(offsetX, offsetY) = " +
+          "(" +
+          deresult.offsetX +
+          ", " +
+          deresult.offsetY +
+          ")"
+      ); */
+
+      /* console.log(
+        "(e.offsetX, e.offsetY) = " + "(" + e.offsetX + ", " + e.offsetY + ")"
+      ); */
+    },
+
+    getAngulo(x, y) {
+      let angulo;
+      let seno = this.calcSeno(x, y);
+      let arcosenoRad = Math.asin(seno);
+      let arcosenoAng = (arcosenoRad * 180) / Math.PI;
+      let quadrante = this.getNumQuadrante(x, y);
+      if (quadrante == 1) {
+        angulo = arcosenoAng;
+      } else if (quadrante == 2) {
+        angulo = 180 - arcosenoAng;
+      } else if (quadrante == 3) {
+        angulo = 180 + Math.abs(arcosenoAng);
+      } else if (quadrante == 4) {
+        angulo = 360 - Math.abs(arcosenoAng);
+      }
+
+      return angulo;
+    },
+
+    getNearestMultiple(angulo) {
+      let quociente = Math.floor(angulo / 15);
+      let anterior = 15 * quociente;
+      let posterior = 15 * (quociente + 1);
+      if (Math.abs(angulo - anterior) < Math.abs(angulo - posterior)) {
+        return anterior;
+      } else {
+        return posterior;
+      }
+    },
+
+    getNumQuadrante(x, y) {
+      if (x > 0) {
+        if (y > 0) {
+          return 1;
+        } else if (y < 0) {
+          return 4;
+        } else if (y == 0) {
+          return "x+";
+        }
+      } else if (x < 0) {
+        if (y > 0) {
+          return 2;
+        } else if (y < 0) {
+          return 3;
+        } else if (y == 0) {
+          return "x-";
+        }
+      } else if (x == 0) {
+        if (y > 0) {
+          return "y+";
+        } else if (y < 0) {
+          return "y-";
+        } else {
+          return "0,0";
+        }
+      }
+    },
+
+    convertCoords(offsetX, offsetY) {
+      // recebe offset e retorna coords a partir do centro do sun path
+      let x = offsetX - 100;
+      let y = offsetY * -1 + 100;
+      return { x, y };
+    },
+
+    coordsToCirclePath(x, y) {
+      let offsetX = x + 100;
+      let offsetY = (y - 100) * -1;
+      return { offsetX, offsetY };
+    },
+
+    calcSeno(x, y) {
+      let hipotenusa = this.calcHipotenusa(x, y);
+      let seno = y / hipotenusa;
+      return seno;
+    },
+
+    calcHipotenusa(x, y) {
+      let hip = Math.sqrt(x ** 2 + y ** 2);
+      return hip;
+    },
+
+    mousewheelChangeAngle(e) {
+      this.checkShadow();
+      let cbShadow = document.getElementById("cbShadow");
+      let sliderShadow = document.getElementById("sliderShadow");
+      let altPressed = 1;
+      if (e.altKey) {
+        altPressed = 3;
+      }
+      if (e.deltaY > 0 && cbShadow.checked) {
+        // está rolando para baixo -> ang diminui
+        if (
+          sliderShadow.value == 0 &&
+          (e.target.id == "sun-path" ||
+            e.target.id == "sun-object" ||
+            e.target.id == "angle-object")
+        ) {
+          sliderShadow.value = 360 - 15 * altPressed;
+        } else {
+          sliderShadow.value = parseInt(sliderShadow.value) - 15 * altPressed;
+        }
+        this.changeShadow();
+      } else if (e.deltaY < 0 && cbShadow.checked) {
+        // está rolando para cima
+        if (
+          sliderShadow.value == 360 &&
+          (e.target.id == "sun-path" ||
+            e.target.id == "sun-object" ||
+            e.target.id == "angle-object")
+        ) {
+          sliderShadow.value = 0 + 15 * altPressed;
+        } else {
+          sliderShadow.value = parseInt(sliderShadow.value) + 15 * altPressed;
+        }
+        this.changeShadow();
+      }
+    },
+    mousewheelChangeElevation(e) {
+      this.checkShadow();
+      let cbShadow = document.getElementById("cbShadow");
+      let sliderElevation = document.getElementById("sliderElementsElevation");
+      if (e.deltaY > 0 && cbShadow.checked) {
+        // está rolando para baixo -> ang diminui
+        console.log("rolando pra baixo");
+        sliderElevation.value -= 1;
+        this.changeShadow();
+      } else if (e.deltaY < 0 && cbShadow.checked) {
+        // está rolando para cima
+        console.log("rolando pra cima");
+        sliderElevation.value = parseInt(sliderElevation.value) + 1;
+        this.changeShadow();
+      }
+    },
+
     changeLang(e) {
       console.log(e.target.value);
       this.$emit("changeLang", e.target.value);
     },
 
     toggleShadow() {
-      // this.$emit("toggleShadow");
       const declaration = document.querySelector(":root").style;
       let sliderShadow = document.getElementById("sliderShadow");
       let sliderElevation = document.getElementById("sliderElementsElevation");
@@ -123,40 +319,55 @@ export default {
       }
     },
 
+    checkShadow() {
+      let cbShadow = document.getElementById("cbShadow");
+      let circleAttention = document.getElementById("circle-attention");
+      if (!cbShadow.checked && circleAttention.style.display != "block") {
+        // shadow off
+        circleAttention.style.display = "block";
+        circleAttention.classList.add("tremer");
+        window.setTimeout(() => {
+          circleAttention.style.display = "none";
+          circleAttention.classList.remove("tremer");
+        }, 1000);
+      }
+    },
+
     changeShadow() {
+      const declaration = document.querySelector(":root").style;
+      let cbShadow = document.getElementById("cbShadow");
+      let sunAngle = document.getElementById("sliderShadow");
       let sunAngleValue = document.getElementById("sliderShadow").value;
+      let sunAngleRad = (sunAngleValue / 180) * Math.PI;
       let elemElevationValue = document.getElementById(
         "sliderElementsElevation"
       ).value;
-      // this.$emit("changeShadow", { sunAngleValue, elemElevationValue });
-      const declaration = document.querySelector(":root").style;
-      let sunAngleRad = (sunAngleValue / 180) * Math.PI;
-      let elemElevation = elemElevationValue;
       let angleObject = document.getElementById("angle-object");
-      let resultado = this.calculateValues(elemElevation, sunAngleRad);
 
-      declaration.setProperty("--box-shadow-x", resultado.coordX + "px");
-      declaration.setProperty("--box-shadow-y", resultado.coordY + "px");
+      let result = this.calculateValues(elemElevationValue, sunAngleRad);
+
+      declaration.setProperty("--box-shadow-x", result.coordX + "px");
+      declaration.setProperty("--box-shadow-y", result.coordY + "px");
       declaration.setProperty(
         "--box-shadow-blur-radius",
-        resultado.blurRadius + "px"
+        result.blurRadius + "px"
       );
       declaration.setProperty(
         "--sun-object-position-x",
-        resultado.sun_coordX + "px"
+        result.sun_coordX + "px"
       );
       declaration.setProperty(
         "--sun-object-position-y",
-        resultado.sun_coordY + "px"
+        result.sun_coordY + "px"
       );
 
       declaration.setProperty(
         "--angle-object-position-x",
-        resultado.angleObj_coordX + "px"
+        result.angleObj_coordX + "px"
       );
       declaration.setProperty(
         "--angle-object-position-y",
-        resultado.angleObj_coordY + "px"
+        result.angleObj_coordY + "px"
       );
       angleObject.innerHTML = sunAngleValue + "\xB0";
     },
@@ -237,6 +448,7 @@ export default {
   user-select: none;
   /* background: green; */
   /* width: 100%; */
+  height: 100%;
 }
 
 .configs-content-controls {
@@ -290,33 +502,29 @@ export default {
   0% {
     background-color: red;
     left: 0px;
-    top: 0px;
   }
+
   25% {
     background-color: yellow;
     left: 50px;
-    /* left: 100%; */
-    top: 0px;
   }
   50% {
     background-color: blue;
     left: 0px;
-    top: 0px;
   }
   75% {
     background-color: green;
-    /* left: 50%; */
     left: 25px;
-    top: 0px;
   }
   100% {
     background-color: red;
     left: 0px;
-    top: 0px;
   }
 }
 
 #circle-attention {
+  margin-left: 5px;
+  top: 5px;
   width: 10px;
   height: 10px;
   border-radius: 50%;
