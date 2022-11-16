@@ -182,22 +182,30 @@ export default {
       }
     });
 
+    // Agora que eu implementei a propriedade overscroll-behavior: contain
+    // não é mais necessário cancelar o scroll quando se estiver dando
+    // touchmove no sliderShadow.
+    // Por isto, e.preventDefault() foi comentado abaixo.
     const sliderShadow = document.getElementById("sliderShadow");
     var valorY = 0;
     sliderShadow.addEventListener("touchmove", (e) => {
       let resultado = e.touches[0].clientY - valorY;
       if (resultado != 0) {
-        e.preventDefault();
+        // e.preventDefault();
       }
       valorY = e.touches[0].clientY;
     });
 
+    // Agora que eu implementei a propriedade overscroll-behavior: contain
+    // não é mais necessário cancelar o scroll quando se estiver dando
+    // touchmove no sliderElevation.
+    // Por isto, e.preventDefault() foi comentado abaixo.
     const sliderElevation = document.getElementById("sliderElementsElevation");
     var valorYelevation = 0;
     sliderElevation.addEventListener("touchmove", (e) => {
       let resultado = e.touches[0].clientY - valorYelevation;
       if (resultado != 0) {
-        e.preventDefault();
+        // e.preventDefault();
       }
       valorYelevation = e.touches[0].clientY;
     });
@@ -208,7 +216,7 @@ export default {
     var valorScroll = 0;
     configContents.addEventListener("touchmove", (e) => {
       let resultado = e.touches[0].clientY - valorScroll;
-      console.log(resultado);
+      // console.log(resultado);
       // if (e.target.scrollTop == 0 && resultado < 0) {
       // e.preventDefault();
       // }
@@ -216,46 +224,6 @@ export default {
       // if(e.target.scrollTop)
       valorScroll = e.touches[0].clientY;
     });
-
-    /*window.addEventListener(
-
-      "touchstart",
-      function funcanom(e) {
-         console.log(e);
-        console.log(e.srcElement);
-        console.log(e.target);
-        console.log(e.target.className);
-        console.log(e.target.type);
-        console.log("user is touching né");
-        // window.removeEventListener("touchstart", funcanom, false);
-        if (e.target.type == "range") {
-          // modern Chrome requires { passive: false } when adding event
-          var supportsPassive = false;
-          try {
-            window.addEventListener(
-              "test",
-              null,
-              Object.defineProperty({}, "passive", {
-                get: function () {
-                  supportsPassive = true;
-                },
-              })
-            );
-          } catch (e) {}
-
-          var wheelOpt = supportsPassive ? { passive: false } : false;
-          window.addEventListener(
-            "touchmove",
-            (e2) => {
-              console.log(e2);
-              // e2.preventDefault();
-            },
-            wheelOpt
-          );
-        }
-      },
-      false
-    );*/
   },
 
   methods: {
@@ -270,7 +238,7 @@ export default {
     changeSunPosition(e) {
       let result = this.convertCoords(e.offsetX, e.offsetY);
       let cbShadow = document.getElementById("cbShadow");
-      console.log("(x, y) = " + "(" + result.x + ", " + result.y + ")");
+      /* console.log("(x, y) = " + "(" + result.x + ", " + result.y + ")");
 
       console.log("seno = " + this.calcSeno(result.x, result.y));
       console.log(
@@ -287,7 +255,7 @@ export default {
           this.getNearestMultiple(this.getAngulo(result.x, result.y))
       );
       console.log("Quadrante: " + this.getNumQuadrante(result.x, result.y));
-      console.log("----------------------------");
+      console.log("----------------------------"); */
 
       let sliderShadow = document.getElementById("sliderShadow");
 
@@ -439,19 +407,19 @@ export default {
       let sliderElevation = document.getElementById("sliderElementsElevation");
       if (e.deltaY > 0 && cbShadow.checked) {
         // está rolando para baixo -> ang diminui
-        console.log("rolando pra baixo");
+        // console.log("rolando pra baixo");
         sliderElevation.value -= 1;
         this.changeShadow();
       } else if (e.deltaY < 0 && cbShadow.checked) {
         // está rolando para cima
-        console.log("rolando pra cima");
+        // console.log("rolando pra cima");
         sliderElevation.value = parseInt(sliderElevation.value) + 1;
         this.changeShadow();
       }
     },
 
     changeLang(e) {
-      console.log(e.target.value);
+      // console.log(e.target.value);
       this.$emit("changeLang", e.target.value);
     },
 
@@ -461,7 +429,7 @@ export default {
       let sliderElevation = document.getElementById("sliderElementsElevation");
       let cbShadow = document.getElementById("cbShadow");
       if (cbShadow.checked) {
-        console.log("cbShadow checked");
+        // console.log("cbShadow checked");
         declaration.setProperty("--box-shadow-alpha", 1);
         sliderShadow.disabled = false;
         sliderElevation.disabled = false;
@@ -469,7 +437,7 @@ export default {
         sliderShadow.classList.remove("inactive-slider");
         sliderElevation.classList.remove("inactive-slider");
       } else {
-        console.log("cbShadow unchecked");
+        // console.log("cbShadow unchecked");
         declaration.setProperty("--box-shadow-alpha", 0);
         sliderShadow.disabled = true;
         sliderElevation.disabled = true;
@@ -612,13 +580,19 @@ export default {
 .configs-content {
   /* box-shadow: -10px 0px 10px 0 var(--box-shadow-color-no-alpha); */
   box-shadow: -8px 0px 10px 0 var(--box-shadow-color-config);
+  /* box-shadow: -8px 0px 10px 0 red; */
   padding: 1rem;
   user-select: none;
-  /* background: green; */
+  /* background-color: var(--primary-color); */
   /* width: 100%; */
-  height: 100%;
   /* transform: translateX(100px); */
-  overflow-y: auto;
+
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  overflow: auto;
+  overscroll-behavior-y: contain;
 }
 
 .configs-content-close-section {
@@ -782,10 +756,10 @@ export default {
 }
 
 .configs-content-body {
-  position: relative;
-  display: flex;
+  /* position: relative; */
+  /* display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
   /* margin: 10px; */
 }
 
@@ -886,7 +860,20 @@ export default {
 @media only screen and (max-width: 600px) {
   /* Se o tamanho da tela for menor que 600px. */
   .configs-content {
-    padding: 1rem 0.5rem;
+    padding: 0.5rem 0.5rem;
+    /* min-height: 700px; */
+  }
+
+  .config-content-close-section {
+  }
+  .configs-content-controls {
+  }
+
+  .configs-content-body {
+    /* margin: 0 10px; */
+    /* min-height: 250px; */
+
+    /* flex-grow: 1; */
   }
 
   .control-box {
@@ -899,16 +886,20 @@ export default {
   .control-box input[type="checkbox"] {
     width: 20px;
     height: 20px;
+    margin: 0;
   }
 
   .control-box select {
     height: 20px;
   }
 
+  .slidecontainer {
+  }
+
   #sliderShadow,
   #sliderElementsElevation {
     -webkit-appearance: none;
-    width: 100%;
+    width: 97%;
     height: 25px;
     background: #d3d3d3;
     outline: none;
@@ -933,8 +924,13 @@ export default {
     cursor: not-allowed;
   }
 
-  .configs-content-body {
-    margin: 0 10px;
+  #sun-path {
+    margin: 24px 18px;
+  }
+
+  #sun-path,
+  .modal-close-button {
+    cursor: default; /* Serve para prevenir quadrado azul ao tocar */
   }
 }
 </style>

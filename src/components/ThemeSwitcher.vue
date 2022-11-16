@@ -127,4 +127,10 @@ input:checked + .slider:before {
     position: absolute;
   }
 }
+
+@media only screen and (max-width: 600px) {
+  .slider {
+    cursor: default;
+  }
+}
 </style>

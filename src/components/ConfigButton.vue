@@ -48,4 +48,10 @@ export default {};
     transform: rotate(180deg);
   }
 }
+
+@media only screen and (max-width: 600px) {
+  .config-button {
+    cursor: default; /* Serve para prevenir quadrado azul ao tocar */
+  }
+}
 </style>

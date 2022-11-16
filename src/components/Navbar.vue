@@ -70,8 +70,8 @@ export default {};
   user-select: none;
 }
 
-@media only screen and (max-width: 400px) {
-  /* Se o tamanho da tela for menor que 400px, faço alguns ajustes no navbar. */
+@media only screen and (max-width: 600px) {
+  /* Se o tamanho da tela for menor que 600px, faço alguns ajustes no navbar. */
   #navbar {
     position: sticky;
     top: 5px;
@@ -112,6 +112,8 @@ export default {};
       )
       1;
     border-bottom-left-radius: 0.2rem;
+
+    cursor: default;
   }
 }
 

@@ -572,10 +572,10 @@ export default {
     };
   },
   mounted() {
-    console.log(window.innerWidth);
-    console.log(window.innerHeight);
+    // console.log(window.innerWidth);
+    // console.log(window.innerHeight);
 
-    console.log("this.showSidenav: " + this.showSidenav);
+    // console.log("this.showSidenav: " + this.showSidenav);
     /* const memeImage = new Image();
     memeImage.src = require("./assets/img/meme-cortina-clarao.gif");
     memeImage.onload = () => {
@@ -615,7 +615,7 @@ export default {
     }, */
 
     detectLanguage() {
-      console.log("navigatorLanguages: " + navigatorLanguages());
+      // console.log("navigatorLanguages: " + navigatorLanguages());
       if (navigatorLanguages()[0].includes("pt")) {
         return "pt";
       } else {
@@ -655,7 +655,21 @@ export default {
       modal.style.setProperty("right", "-" + modalWidth);
       this.showConfigs = true;
       window.setTimeout(() => {
-        modal.style.setProperty("transition", "right 100ms linear");
+        /* modal.style.setProperty(
+          "transition",
+          "right 400ms cubic-bezier(0, 1, 0, 1)"
+        ); */
+        // modal.style.setProperty("transition", "right");
+        /* modal.style.setProperty(
+          "transition",
+          "right 777ms cubic-bezier(0.5, 0.5, 0, 1)"
+        ); */
+        modal.style.setProperty("transition-property", "right");
+        modal.style.setProperty("transition-duration", "500ms ");
+        modal.style.setProperty(
+          "transition-timing-function",
+          "cubic-bezier(0.5, 0.5, 0, 1)"
+        );
         modal.style.setProperty("right", "0px");
       }, 0);
     },
@@ -668,10 +682,20 @@ export default {
       const modalWidth = getComputedStyle(modal).width;
       // console.log(getComputedStyle(modal).width);
       modal.style.setProperty("right", "-" + modalWidth);
+      /* modal.style.setProperty(
+        "transition",
+        "right 500ms cubic-bezier(0.5, 0.5, 0, 1)"
+      ); */
 
+      modal.style.setProperty("transition-property", "right");
+      modal.style.setProperty("transition-duration", "500ms ");
+      modal.style.setProperty(
+        "transition-timing-function",
+        "cubic-bezier(0.5, 0.5, 0, 1)"
+      );
       window.setTimeout(() => {
         this.showConfigs = false;
-      }, 100);
+      }, 500);
     },
 
     setTheme(theme) {
@@ -923,6 +947,7 @@ html {
 
 body {
   margin: 0 auto;
+  overscroll-behavior-y: contain;
 }
 
 main {
