@@ -20,11 +20,11 @@
         <div v-if="techs" class="techs-proj-container">
           <TechPill v-for="tech in techs" :techKey="tech" />
         </div>
-        <div v-if="updated" class="footer-proj-container">
-          <span lang="en">Updated:&nbsp;</span>
-          <span lang="pt">Atualizado:&nbsp;</span><span> {{ updated }}</span>
-        </div>
       </div>
+    </div>
+    <div v-if="updated" class="footer-proj-container">
+      <span lang="en">Updated:&nbsp;</span>
+      <span lang="pt">Atualizado:&nbsp;</span><span> {{ updated }}</span>
     </div>
   </div>
 </template>
@@ -76,7 +76,6 @@ export default {
 
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
 
   user-select: none;
 }
@@ -136,6 +135,7 @@ export default {
   justify-content: space-between;
 
   /* border: 3px dashed white; */
+  flex-grow: 1;
 }
 
 .up-body-proj-container {
@@ -144,14 +144,35 @@ export default {
 
   /* border: 3px solid orange; */
   line-height: 1.75rem;
+
+  flex-grow: 1;
+
+  overflow-y: hidden;
 }
 .under-body-proj-container {
-  /* display: flex;
+  display: flex;
   flex-direction: column;
-  justify-content: flex-end; */
+  justify-content: space-between;
   width: 100%;
 
   /* border: 3px solid green; */
+  flex-grow: 0;
+}
+
+.link-proj-container {
+  padding: 0.5rem 0rem 0.5rem 1rem;
+  /* border: 1px solid blue; */
+}
+
+.techs-proj-container {
+  padding: 1rem 0rem 0.5rem 1rem;
+  font-size: small;
+  color: var(--font-color-ligher);
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  /* border: 1px solid white; */
 }
 
 .body-proj-container.minheight {
@@ -187,18 +208,8 @@ export default {
   );
 }
 
-.link-proj-container {
-  padding: 0.5rem 0rem 0.5rem 1rem;
-}
-
 .link-proj-container a {
   margin-right: 10px;
-}
-
-.techs-proj-container {
-  padding: 1rem 0rem 0.5rem 1rem;
-  font-size: small;
-  color: var(--font-color-ligher);
 }
 
 .footer-proj-container {

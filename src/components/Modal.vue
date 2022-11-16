@@ -51,14 +51,16 @@ export default {
 
 .modal {
   background-color: var(--primary-color);
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
+  /* border: 1px solid var(--border-color); */
+  /* border-radius: var(--border-radius); */
   position: absolute;
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
   /* padding: 20px; */
   z-index: var(--modal-window-z-index);
+  /* transform: translateX(100px); */
+  /* transition: right 500ms linear; */
 }
 
 .modal.fillVert {
@@ -73,7 +75,7 @@ export default {
   position: fixed;
   top: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, var(--backdrop-alpha));
   width: 100%;
   height: 100%;
   z-index: var(--modal-backdrop-z-index);

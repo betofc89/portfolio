@@ -1,7 +1,7 @@
 <template>
   <div class="theme-switch-wrapper">
-    <label class="theme-switch" for="cb-dark-theme">
-      <input type="checkbox" id="cb-dark-theme" @change="toggleTheme" />
+    <label class="theme-switch" for="cb-dark-theme-simple">
+      <input type="checkbox" id="cb-dark-theme-simple" @change="toggleTheme" />
       <div class="slider round"></div>
     </label>
   </div>
@@ -15,9 +15,9 @@ export default {
     },
     toggleSwitch() {
       if (document.documentElement.classList.contains("dark-theme")) {
-        document.getElementById("cb-dark-theme").checked = true;
+        document.getElementById("cb-dark-theme-simple").checked = true;
       } else {
-        document.getElementById("cb-dark-theme").checked = false;
+        document.getElementById("cb-dark-theme-simple").checked = false;
       }
     },
   },
@@ -32,9 +32,9 @@ export default {
   display: flex;
   align-items: center;
 
-  position: fixed;
+  /* position: absolute;
   top: 10px;
-  right: 10px;
+  right: 10px; */
 }
 
 .theme-switch {
@@ -50,7 +50,8 @@ export default {
 
 .slider {
   /* background-color: #ccc; */
-  background-color: rgb(253, 221, 115);
+  background-color: rgba(253, 221, 115, 1);
+  /* background-color: var(--element-bg-color); */
   cursor: pointer;
   position: absolute;
 
@@ -59,17 +60,18 @@ export default {
   bottom: 0;
   left: 0;
 
-  transition: 0.4s;
+  /* transition: 0.4s; */
 
-  box-shadow: 0 0 2px 2px var(--config-button-shadow-color);
+  /* box-shadow: 0 0 2px 2px var(--config-button-shadow-color); */
+  box-shadow: var(--config-control-box-shadow);
   /* box-shadow: 0 0 4px 1px rgb(64, 64, 64) inset; */
 }
 
 .slider:before {
-  /* background-color: #fff;
-  background-image: var(--sun-icon); */
+  /* background-color: #fff; */
   background-color: var(--element-bg-color);
   background-image: var(--sun-icon-branco);
+  /* background-image: var(--sun-icon); */
   background-size: 1rem;
   background-repeat: no-repeat;
   background-position: center;
@@ -85,6 +87,7 @@ export default {
 
   /* box-shadow: 0 0 3px 1px grey; */
   box-shadow: var(--slider-knob-box-shadow);
+  /* box-shadow: 0 0 3px 1px red; */
 }
 
 input:checked + .slider {
@@ -106,7 +109,7 @@ input:checked + .slider:before {
 /* input:checked + .slider:before {
   transform: translateX(26px);
 } */
-#cb-dark-theme:checked + .slider:before {
+#cb-dark-theme-simple:checked + .slider:before {
   transform: translateX(26px);
 }
 
@@ -124,7 +127,7 @@ input:checked + .slider:before {
   /* Estou adicionando este bloco para impedir que o switcher desça junto com a rolagem da tela se o tamanho da tela for menor que um valor calculado. */
   /* 800px: main max-width; 60px: .theme-switch width; 10px: .theme-switch-wrapper right position; 1rem: #main-wrap margin; 3rem: margem de segurança */
   .theme-switch-wrapper {
-    position: absolute;
+    /* position: absolute; */
   }
 }
 </style>

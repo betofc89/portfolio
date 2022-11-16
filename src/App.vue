@@ -1,6 +1,9 @@
 <template>
+  <div id="mascara-superior"></div>
+  <div id="mascara-inferior"></div>
+
   <ThemeSwitcher @toggleTheme="toggleTheme" ref="themeswitcher" />
-  <ConfigButton @click="toggleConfigs" />
+  <ConfigButton @click="openConfigs" />
   <!-- <Sidenav ref="sidenav" @close="toggleSidenav">
     <Configs
       @changeLang="setLanguage"
@@ -13,19 +16,21 @@
   </Sidenav> -->
   <Modal
     v-show="showConfigs"
-    @close="toggleConfigs"
+    @close="closeConfigs"
     :posH="'right'"
     :posV="'top'"
     :fillVert="true"
+    id="modalConfigs"
   >
     <Configs
-      @close="toggleConfigs"
+      @close="closeConfigs"
       @toggleTheme="toggleTheme"
       @changeLang="setLanguage"
+      ref="configs"
     />
   </Modal>
 
-  <Modal
+  <!-- <Modal
     v-show="showMemeClaraoGif"
     :posH="'center'"
     :posV="'center'"
@@ -37,7 +42,7 @@
       style="user-select: none"
       id="memeClaraoGif"
     />
-  </Modal>
+  </Modal> -->
   <main>
     <div id="main-wrap">
       <h1 id="page-title" lang="en">
@@ -251,16 +256,16 @@ export default {
       publicPath: process.env.BASE_URL,
       showConfigs: false,
       showSidenav: false,
-      showMemeClaraoGif: false,
-      memeImageURL: null,
+      // showMemeClaraoGif: false,
+      // memeImageURL: null,
       initialTheme: "",
       themeChangesToLight: 0,
-      memeImageLoaded: false,
+      // memeImageLoaded: false,
       projects_en: [
         {
           name: "Culinary Recipes WebApp",
           description:
-            "A small webapp containing various culinary recipes that I developed to join the fullstack challenge of a company.",
+            "A webapp containing various culinary recipes that I developed to join the fullstack challenge of a company.",
           buttonlinks: [
             {
               text: "GitHub Repo",
@@ -270,14 +275,6 @@ export default {
           ],
           techs: ["html", "css", "vuejs", "nodejs", "express", "mongodb"],
           updated: "Sep 16th, 2022",
-        },
-        {
-          name: "Blockchain Interaction",
-          description:
-            "A page where a user will be able to interact with a smart contract on the Ethereum blockchain.",
-          buttonlinks: [{ text: "Link (soon)", href: "#projects-session" }],
-          techs: ["solidity", "ethereum", "html", "css", "vuejs"],
-          updated: "(soon)",
         },
         {
           name: "This Portfolio Page",
@@ -290,14 +287,22 @@ export default {
             },
           ],
           techs: ["html", "css", "vuejs", "javascript"],
-          updated: "Oct 27th, 2022",
+          updated: "Nov 11th, 2022",
+        },
+        {
+          name: "Blockchain Interaction",
+          description:
+            "A page where a user will be able to interact with a smart contract on the Ethereum blockchain.",
+          buttonlinks: [{ text: "Link (soon)", href: "#projects-session" }],
+          techs: ["solidity", "ethereum", "html", "css", "vuejs"],
+          updated: "(soon)",
         },
       ],
       projects_pt_br: [
         {
           name: "WebApp de Receitas Culinárias",
           description:
-            "Um pequeno webapp contendo várias receitas culinárias que desenvolvi para participar do desafio de desenvolvedor fullstack de uma empresa.",
+            "Webapp contendo várias receitas culinárias que desenvolvi para participar do desafio de desenvolvedor fullstack de uma empresa.",
           buttonlinks: [
             {
               text: "GitHub Repo",
@@ -307,14 +312,6 @@ export default {
           ],
           techs: ["html", "css", "vuejs", "nodejs", "express", "mongodb"],
           updated: "16 de Set de 2022",
-        },
-        {
-          name: "Interação com a Blockchain",
-          description:
-            "Uma página onde o usuário será capaz de interagir com um contrato inteligente na blockchain da Ethereum",
-          buttonlinks: [{ text: "Link (em breve)", href: "#projects-session" }],
-          techs: ["solidity", "ethereum", "html", "css", "vuejs"],
-          updated: "(em breve)",
         },
         {
           name: "Esta página de portfolio",
@@ -327,7 +324,15 @@ export default {
             },
           ],
           techs: ["html", "css", "vuejs", "javascript"],
-          updated: "27 de Out de 2022",
+          updated: "11 de Nov de 2022",
+        },
+        {
+          name: "Interação com a Blockchain",
+          description:
+            "Uma página onde o usuário será capaz de interagir com um contrato inteligente na blockchain da Ethereum",
+          buttonlinks: [{ text: "Link (em breve)", href: "#projects-session" }],
+          techs: ["solidity", "ethereum", "html", "css", "vuejs"],
+          updated: "(em breve)",
         },
       ],
       bios_en: [
@@ -341,12 +346,12 @@ export default {
         {
           name: "2010 - 2011",
           description:
-            "Developed a simple web application using HTML, CSS, JavaScript, PHP, and MySQL.",
+            "Developed a simple web application using HTML, CSS, JavaScript, jQuery, PHP, and MySQL.",
           buttonlinks: [],
           techs: [],
           updated: "",
         },
-        {
+        /* {
           name: "2011 - 2018",
           description:
             "Mechanical Engineering B.Sc. at UFRJ (Universidade Federal do Rio de Janeiro) (Macaé, Rio de Janeiro, Brazil).",
@@ -361,7 +366,7 @@ export default {
           buttonlinks: [],
           techs: [],
           updated: "",
-        },
+        }, */
         {
           name: "2019 - 2022",
           description:
@@ -391,12 +396,12 @@ export default {
         {
           name: "2010 - 2011",
           description:
-            "Desenvolvi uma aplicação web simples usando HTML, CSS, JavaScript, PHP, e MySQL.",
+            "Desenvolvimento de uma aplicação web simples usando HTML, CSS, JavaScript, jQuery, PHP, e MySQL.",
           buttonlinks: [],
           techs: [],
           updated: "",
         },
-        {
+        /* {
           name: "2011 - 2018",
           description:
             "Bacharelado em Engenharia Mecânica pela UFRJ (Universidade Federal do Rio de Janeiro) (Macaé, Rio de Janeiro, Brasil).",
@@ -411,7 +416,7 @@ export default {
           buttonlinks: [],
           techs: [],
           updated: "",
-        },
+        }, */
         {
           name: "2019 - 2022",
           description: "Analista de Logística na NEOgás do Brasil.",
@@ -482,7 +487,7 @@ export default {
           techs: ["vba", "excel"],
           updated: "Jun 27th, 2022",
         },
-        {
+        /* {
           name: "Mechanical Engineering final paper",
           description:
             "My Mechanical Engineering course conclusion work. A hydraulic system is simulated in Matlab using an artificial neural networks package.",
@@ -494,7 +499,7 @@ export default {
           ],
           techs: ["matlab", "neural_networks"],
           updated: "Dec 19th, 2018",
-        },
+        }, */
       ],
       miscProjects_pt_br: [
         {
@@ -540,7 +545,7 @@ export default {
         {
           name: "Preparação de dados do Excel",
           description:
-            "Um algoritmo escrito em VBA (Visual Basic for Applications) que organiza dados exportados por softwares de terceiros em um tabela organizada do Excel.",
+            "Um algoritmo escrito em VBA (Visual Basic for Applications) que organiza dados exportados por softwares de terceiros em uma tabela organizada do Excel.",
           buttonlinks: [
             {
               text: "Link",
@@ -550,7 +555,7 @@ export default {
           techs: ["vba", "excel"],
           updated: "27 de Jun de 2022",
         },
-        {
+        /* {
           name: "Monografia de Engenharia Mecânica",
           description:
             "Minha monografia de Engenharia Mecânica. Um sistema hidráulico é simulado no Matlab usando o pacote de redes neurais artificiais.",
@@ -562,7 +567,7 @@ export default {
           ],
           techs: ["matlab", "neural_networks"],
           updated: "19 de Dez de 2018",
-        },
+        }, */
       ],
     };
   },
@@ -571,23 +576,25 @@ export default {
     console.log(window.innerHeight);
 
     console.log("this.showSidenav: " + this.showSidenav);
-    const memeImage = new Image();
+    /* const memeImage = new Image();
     memeImage.src = require("./assets/img/meme-cortina-clarao.gif");
     memeImage.onload = () => {
       this.memeImageURL = memeImage.src;
       console.log(this.memeImageURL);
       this.memeImageLoaded = true;
-    };
+    }; */
 
     this.setTheme(this.getUserThemePreference());
     this.$refs.themeswitcher.toggleSwitch();
+    this.$refs.configs.toggleSwitch();
+
     this.setLanguage(this.detectLanguage());
 
-    this.changeMemeWidth();
+    // this.changeMemeWidth();
   },
 
   methods: {
-    changeMemeWidth() {
+    /* changeMemeWidth() {
       const declaration = document.querySelector(":root").style;
       console.log(
         "setando --width-meme-smartphone para 90% de " +
@@ -605,8 +612,7 @@ export default {
             "--width-meme-smartphone"
           )
       );
-      // console.log(declaration.getPropertyValue("--width-meme-smartphone"));
-    },
+    }, */
 
     detectLanguage() {
       console.log("navigatorLanguages: " + navigatorLanguages());
@@ -637,23 +643,35 @@ export default {
       document.getElementById("languagesSelect").value = lang;
     },
 
-    toggleConfigs() {
-      this.showConfigs = !this.showConfigs;
-      /* if (this.showConfigs) {
-        document.body.classList.add("stop-scrolling");
-      } else {
-        document.body.classList.remove("stop-scrolling");
-      } */
+    openConfigs() {
+      var modal = document
+        .getElementById("modalConfigs")
+        .getElementsByClassName("modal")
+        .item(0);
+
+      // const modalWidth = getComputedStyle(modal).width;
+      const modalWidth = "234px";
+      // console.log("modalWidth = " + modalWidth);
+      modal.style.setProperty("right", "-" + modalWidth);
+      this.showConfigs = true;
+      window.setTimeout(() => {
+        modal.style.setProperty("transition", "right 100ms linear");
+        modal.style.setProperty("right", "0px");
+      }, 0);
     },
 
-    toggleSidenav() {
-      console.log("this.showSidenav: " + this.showSidenav);
-      this.showSidenav = !this.showSidenav;
-      if (this.showSidenav) {
-        this.$refs.sidenav.showSidenav();
-      } else {
-        this.$refs.sidenav.closeSidenav();
-      }
+    closeConfigs() {
+      var modal = document
+        .getElementById("modalConfigs")
+        .getElementsByClassName("modal")
+        .item(0);
+      const modalWidth = getComputedStyle(modal).width;
+      // console.log(getComputedStyle(modal).width);
+      modal.style.setProperty("right", "-" + modalWidth);
+
+      window.setTimeout(() => {
+        this.showConfigs = false;
+      }, 100);
     },
 
     setTheme(theme) {
@@ -664,19 +682,15 @@ export default {
       if (document.documentElement.classList.contains("dark-theme")) {
         this.setTheme("light-theme");
         // Só mostrar meme se o tema prefered for dark
-        if (
-          this.initialTheme == "dark" &&
-          (this.themeChangesToLight == 0 ||
-            this.themeChangesToLight % 5 == 0) &&
-          this.memeImageLoaded
-        ) {
+        /* if (this.initialTheme == "dark" && (this.themeChangesToLight == 0 || this.themeChangesToLight % 5 == 0) && this.memeImageLoaded) {
           this.memeClaraoGif();
-        }
+        } */
         this.themeChangesToLight += 1;
       } else {
         this.setTheme("dark-theme");
       }
       this.$refs.themeswitcher.toggleSwitch();
+      this.$refs.configs.toggleSwitch();
     },
 
     getUserThemePreference() {
@@ -688,17 +702,21 @@ export default {
       }
     },
 
-    memeClaraoGif() {
+    /* memeClaraoGif() {
       this.showMemeClaraoGif = true;
       window.setTimeout(() => {
         this.showMemeClaraoGif = false;
       }, 1000);
-    },
+    }, */
   },
 };
 </script>
 
 <style>
+#modalConfigs > .modal {
+  /* transform: translateX(100px); */
+}
+
 :root,
 :root.light-theme {
   --primary-color: rgb(232, 232, 232);
@@ -716,6 +734,7 @@ export default {
 
   --box-shadow-alpha: 1;
   --box-shadow-color: rgba(128, 128, 128, var(--box-shadow-alpha));
+  --box-shadow-color-no-alpha: rgb(128, 128, 128);
   --box-shadow-x: 0px;
   --box-shadow-y: 0px;
   --box-shadow-blur-radius: 0px;
@@ -736,14 +755,22 @@ export default {
 
   --thematic-gradient-color-1: blue;
   --thematic-gradient-color-2: red;
+  --grad-a: 0%;
+  --grad-b: 0%;
+  --grad-c: 100%;
 
   --thematic-gradient-color-1-unhovered: rgb(100, 100, 100);
   --thematic-gradient-color-2-unhovered: rgb(211, 211, 211);
 
   --navbar-bg-color: rgba(210, 210, 210, 1);
 
+  --config-button-bg-color: rgba(255, 255, 255, 1);
+  --config-button-shadow-color: rgba(200, 200, 200, 1);
+
   /* ---------------------------------------------------------------------- */
   /* config modal */
+
+  --backdrop-alpha: 0.6;
 
   --sun-path-radius: 100px;
   --sun-object-radius: 15px;
@@ -756,12 +783,18 @@ export default {
   );
 
   --sun-icon: url("./assets/img/sun-icon.svg");
+  --sun-icon-branco: url("./assets/img/sun-icon.svg");
   --sun-icon-bg-color: rgb(253, 221, 115);
 
   --modal-close-button-bg-color: var(--navbar-bg-color);
   --modal-close-button-bg-color-hover: rgba(220, 220, 220, 1);
 
+  --box-shadow-color-config: rgb(80, 80, 80);
+
   --border-radius: 0px;
+
+  --config-control-box-shadow: 0 0 2px 2px var(--config-button-shadow-color);
+  --slider-knob-box-shadow: 0 0 2px 2px var(--config-button-shadow-color);
 
   /* ---------------------------------------------------------------------- */
   /* z-index */
@@ -790,6 +823,7 @@ export default {
 
   /* --box-shadow-alpha: 1; */
   --box-shadow-color: rgba(16, 16, 16, var(--box-shadow-alpha));
+  --box-shadow-color-no-alpha: rgb(16, 16, 16);
   /* --box-shadow-x: 0px; */
   /* --box-shadow-y: 5px; */
   /* --box-shadow-blur-radius: 3px; */
@@ -816,8 +850,13 @@ export default {
 
   --navbar-bg-color: rgba(85, 85, 85, 1);
 
+  --config-button-bg-color: rgba(175, 175, 175, 1);
+  --config-button-shadow-color: rgba(48, 48, 48, 1);
+
   /* ---------------------------------------------------------------------- */
   /* config modal */
+
+  --backdrop-alpha: 0.75;
 
   /* --sun-path-radius: 100px; */
   /* --sun-object-radius: 15px; */
@@ -830,13 +869,20 @@ export default {
   ); */
 
   /* --sun-icon: url("../src/assets/img/moon-icon.svg"); */
-  --sun-icon: url("./assets/img/moon-icon.svg");
+  /* --sun-icon: url("./assets/img/moon-icon.svg"); */
+  --sun-icon: var(--sun-icon-branco);
+  --sun-icon-branco: url("./assets/img/moon-icon-branco.svg");
   --sun-icon-bg-color: #7866bb;
 
   --modal-close-button-bg-color: var(--navbar-bg-color);
   --modal-close-button-bg-color-hover: rgba(115, 115, 115, 0.85);
 
+  --box-shadow-color-config: rgb(8, 8, 8);
+
   /* --border-radius: 0px; */
+
+  --config-control-box-shadow: 0px 0px 2px 3px rgb(20, 20, 20);
+  --slider-knob-box-shadow: 0px 0px 3px 2px rgb(32, 32, 32);
 }
 
 [lang="en"] {
@@ -846,10 +892,10 @@ export default {
 }
 
 @media only screen and (max-width: 400px) {
-  #memeClaraoGif {
+  /* #memeClaraoGif {
     width: var(--width-meme-smartphone);
     height: calc((371 / 498) * var(--width-meme-smartphone) px);
-  }
+  } */
 }
 
 .stop-scrolling {
@@ -910,7 +956,7 @@ span.subtle-link {
 a.subtle-link:hover,
 span.subtle-link:hover {
   color: var(--font-color-hover);
-  border-bottom: none;
+  border-bottom: 1px dashed var(--primary-color);
 }
 
 a.external-link:after {

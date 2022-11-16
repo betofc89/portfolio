@@ -10,15 +10,16 @@ export default {};
 /* CONFIG BUTTON */
 
 .config-button {
-  width: 34px;
-  height: 34px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
-  background: url("../assets/img/settings.svg") no-repeat white;
+  background: url("../assets/img/settings.svg") no-repeat #ffffff;
   background-position: center;
   background-size: 1rem;
-  box-shadow: 0 0 2px 2px rgba(200, 200, 200, 1);
+  /* box-shadow: 0 0 2px 2px rgba(200, 200, 200, 1); */
+  box-shadow: 0 0 2px 2px var(--config-button-shadow-color);
   position: fixed;
-  top: 10px;
+  top: 12px;
   right: 80px;
   z-index: var(--config-button-z-index);
   cursor: pointer;
@@ -28,18 +29,19 @@ export default {};
   /* Se o tamanho da tela for menor que um valor calculado, prender botão no bottom. */
   .config-button {
     outline: none;
-    width: 58px;
-    height: 58px;
+    width: 42px;
+    height: 42px;
     background-size: 1.5rem;
 
     position: fixed;
     top: unset;
     right: 20px;
-    bottom: 20px;
+    bottom: 14px;
 
-    box-shadow: 0 0 3px 3px rgba(176, 176, 176, 1);
+    box-shadow: 0 0 3px 3px var(--config-button-shadow-color);
 
     transition: transform 0.5s ease;
+    background-color: var(--config-button-bg-color);
   }
 
   .rotate360deg {
