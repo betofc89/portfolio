@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.1.1/css/all.css">
+    <script src="./script.js"></script>
+    <title>Testando HTML/CSS</title>
+</head>
+<body>
+    <nav>
+        
+        <span class="nav-element"><a href="../">Portfolio</a></span>
+        <i class="fa-solid fa-right-long"></i>
+        <span class="nav-element">Testando HTML/CSS</span>
+    </nav>
+    <div id="wrapper">
+        <header>
+            <span id="top"></span>
+            <h1>Testando HTML/CSS</h1>
+            <!-- <p>This is a simple web-page made by Roberto Cabral to test some of his current knowledge on HTML and CSS.</p> -->
+            <p>Esta é uma página simples feita por Robeto Cabral para testar alguns dos seus conhecimentos atuais de HTML e CSS.</p>
+            <!-- <p>Click on any of the links below to go straight to the respective section.</p> -->
+            <p>Clique em qualquer dos links abaixo para ir direto para a respectiva seção.</p>
+    
+            <div id="summary-new">
+
+                <a href="#social-section">Posts de Mídia Social</a>
+                <a href="#information-box">Information Box</a>
+                <a href="#moving-bars">Barras móveis</a>
+                <a href="#keyboard_keys">Teclas de teclado</a>
+                <a href="#formatted_css_code">Código CSS formatado</a>
+                <a href="#simple_form">Um formulário simples</a>
+                <a href="#simple_table">Uma tabela simples</a>
+                <a href="#rgb_gradient_effect">Efeito Gradiente RGB</a>
+                <a href="#push_section">Empurrar</a>
+                <a href="#jump_section">Pular</a>
+                <a href="#another_grid">Quadrados afundando</a>
+                <a href="#clip_section">Cortar</a>
+                <a href="#an_example_of_svg">Um exemplo de SVG</a>
+                <a href="#tooltip-section">Caixa de dica</a>
+                
+            </div>
+    
+        </header>
+
+        <main>
+
+            <div class="divider"></div>
+            <section>
+                
+                <h2 id="social-section">Posts de Mídia Social</h2><a href="#top"><i class="fa-solid fa-arrow-up"></i></a>
+                <!-- <p>In this section I replicate the basic layout of social media posts.</p> -->
+                <p>Nesta seção eu repliquei o layout básico de um post de mídia social (ex.: Facebook).</p>
+                <div class="social-container">
+                    
+                    <div class="header-social-container">
+                        
+                        <div class="profile-picture">
+                            <img src="./img/user-icon.png">
+                        </div>
+                        
+                        <div class="container-name-profession">
+                            <div class="profile-name">
+                                Sir Isaac Newton
+                            </div>
+                            <div class="profile-profession">
+                                Físico
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="content-social-container">
+                        <p>
+                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod sapiente ipsa numquam omnis, accusamus voluptate cum laborum, eos laudantium animi optio! Impedit, non at quam sed vero architecto laudantium eveniet?
+                        </p>
+                    </div>
+
+                    <div class="date-time-social-container">
+                        <!-- Aug 16th, 2022 - 1:30 PM -->
+                        16 de Agosto de 2022 - 13:30
+                    </div>
+
+                    <div class="likes-comments-shares-container">
+                        <div class="likes-count">
+                            31 likes
+                        </div>
+                        
+                        <div class="comments-shares-cont">
+                            <div class="comments-count">
+                                9 comentários
+                            </div>
+
+                            <div><i class="fa-solid fa-circle"></i></div>
+    
+                            <div class="shares-count">
+                                3 compartilhamentos
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="buttons-social-container">
+                        <div class="like-button button-social-container">Like</div>
+                        <div class="comment-button button-social-container">Comentar</div>
+                        <div class="share-button button-social-container">Compartilhar</div>
+                    </div>
+
+                </div>
+
+                <div class="social-container">
+                    
+                    <div class="header-social-container">
+                        
+                        <div class="profile-picture">
+                            <img src="./img/user-icon.png">
+                        </div>
+                        
+                        <div class="container-name-profession">
+                            <div class="profile-name">
+                                Moysés Nussenzveig
+                            </div>
+                            <div class="profile-profession">
+                                Físico e Professor
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="content-social-container">
+                        <p>
+                            Totam deserunt dignissimos ducimus quidem et debitis blanditiis corporis vero beatae earum commodi eligendi.
+                        </p>
+
+                        <div class="img-social-post">
+                            <img src="./img/paisagem_bonita.jpg" alt="Paisagem bonita">
+                        </div>
+
+                    </div>
+
+                    <div class="date-time-social-container">
+                        <!-- Aug 16th, 2022 - 3:32 PM -->
+                        16 de Agosto de 2022 - 15:32
+                    </div>
+
+                    <div class="likes-comments-shares-container">
+                        <div class="likes-count">
+                            31 likes
+                        </div>
+                        
+                        <div class="comments-shares-cont">
+                            <div class="comments-count">
+                                2 comentários
+                            </div>
+
+                            <div><i class="fa-solid fa-circle"></i></div>
+    
+                            <div class="shares-count">
+                                5 compartilhamentos
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="buttons-social-container">
+                        <div class="like-button button-social-container">Like</div>
+                        <div class="comment-button button-social-container">Comentar</div>
+                        <div class="share-button button-social-container">Compartilhar</div>
+                    </div>
+
+                </div>
+
+                <p>E logo abaixo, uma variante amarelada:</p>
+
+                <div class="social-container-yellow-variant">
+                    
+                    <div class="header-social-container">
+                        
+                        <div class="profile-picture">
+                            <img src="./img/user-icon.png">
+                        </div>
+                        
+                        <div class="container-name-profession">
+                            <div class="profile-name">
+                                Richard Feynman
+                            </div>
+                            <div class="profile-profession">
+                                Físico e Professor
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="content-social-container">
+                        <p>
+                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod sapiente ipsa numquam omnis, accusamus voluptate cum laborum, eos laudantium animi optio! Impedit, non at quam sed vero architecto laudantium eveniet?
+                        </p>
+                    </div>
+
+                    <div class="date-time-social-container">
+                        16 de Agosto de 2022 - 13:30
+                    </div>
+
+                    <div class="likes-comments-shares-container">
+                        <div class="likes-count">
+                            31 likes
+                        </div>
+                        
+                        <div class="comments-shares-cont">
+                            <div class="comments-count">
+                                9 comentários
+                            </div>
+
+                            <div><i class="fa-solid fa-circle"></i></div>
+    
+                            <div class="shares-count">
+                                3 compartilhamentos
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="buttons-social-container">
+                        <div class="like-button button-social-container">Like</div>
+                        <div class="comment-button button-social-container">Comentar</div>
+                        <div class="share-button button-social-container">Compartilhar</div>
+                    </div>
+
+                </div>
+
+                
+    
+            </section>
+
+            <div class="divider"></div>
+            <section>
+                <h2 class="section-title" id="information-box">Caixa de informação</h2><a href="#top"><i class="fa-solid fa-arrow-up"></i></a>
+                
+                <!-- <p>Some webpages, especially those dedicated to documentation, use some boxes to provide useful information that requires an special attention.</p> -->
+                <p>Algumas páginas, espcialmente aquelas dedicadas à documentação, usam algumas caixas para prover informação útil que requer atenção especial.</p>
+
+                <div class="info-box light-green">
+                    <span class="info-box-text-content">Esta é uma caixa de informação.</span>
+                    <div class="botao-close">
+                        <i class="fa-solid fa-xmark"></i>
+                    </div>
+                </div>
+
+                <div class="info-box yellow">
+                    <span class="info-box-text-content">Esta é outra caixa de informação.</span>
+                    <div class="botao-close">
+                        <i class="fa-solid fa-xmark"></i>
+                    </div>
+                </div>
+
+                <div class="info-box dark-blue">
+                    <span class="info-box-text-content">E esta caixa de informação tem tema escuro.</span>
+                    <div class="botao-close">
+                        <i class="fa-solid fa-xmark"></i>
+                    </div>
+                </div>
+                
+    
+            </section>
+
+            <div class="divider"></div>
+            <section>
+                <h2 class="section-title" id="moving-bars">Barras em movimento</h2><a href="#top"><i class="fa-solid fa-arrow-up"></i></a>
+                <p>Mova o seu mouse acima das barras para ver o efeito das mesmas se movimentando:</p>
+                <div class="moving-bars-container">
+                    <div class="bar-element"></div>
+                    <div class="bar-element"></div>
+                    <div class="bar-element"></div>
+                    <div class="bar-element"></div>
+                    <div class="bar-element"></div>
+                    <div class="bar-element"></div>
+                    <div class="bar-element"></div>
+                    <div class="bar-element"></div>
+                    <div class="bar-element"></div>
+                    <div class="bar-element"></div>
+                    <div class="bar-element"></div>
+                    <div class="bar-element"></div>
+                    <div class="bar-element"></div>
+                    <div class="bar-element"></div>
+                    <div class="bar-element"></div>
+                    <div class="bar-element"></div>
+                    <div class="bar-element"></div>
+                    
+                </div>
+            </section>
+
+            <div class="divider"></div>
+            <section>
+                <!-- <h2 class="section-title" id="keyboard_keys">Keyboard keys</h2><a href="#top">(back to top <i class="fa-solid fa-arrow-up"></i>)</a> -->
+                <h2 class="section-title" id="keyboard_keys">Teclas de teclado</h2><a href="#top"><i class="fa-solid fa-arrow-up"></i></a>
+                <!-- <p>I created a CSS class to style some letters as if they were keyboard keys.</p> -->
+                <p>Eu criei uma classe em CSS para estilizar algumas letras como teclas do teclado.</p>
+                <div class="tip">
+                    <!-- <span class="tip-title">Tip 💡</span> Click on the keys below to see the pressing effect on them. -->
+                    <span class="tip-title">Dica 💡</span> Clique nas teclas abaixo para ver o efeito de pressionamento.
+                </div>
+                <p>A combinação <span class="tecla"><span class="tecla-texto">Ctrl</span></span> + <span class="tecla"><span class="tecla-texto">Alt</span></span> + <span class="tecla"><span class="tecla-texto">Del</span></span> é uma das combinações mais comuns para usuários intermediários e avançados de Windows.</p>
+    
+            </section>
+
+            <div class="divider"></div>
+            <section>
+                <h2 id="formatted_css_code">Código CSS formatado</h2><a href="#top"><i class="fa-solid fa-arrow-up"></i></a>
+                <!-- <p>Below I replicate the color scheme of <span class="vscode">Visual Studio Code</span> IDE:</p> -->
+                <p>Abaixo eu repliquei o esquema de cores de um editor de código (ex.: <span class="vscode">Visual Studio Code</span>)</p>
+                <div class="code">
+                    <code>
+                        <span class="n1">main</span> <span class="brkts">{</span> <br>
+                        <span class="tab1"></span><span class="n2">width</span>: <span class="n3">70%;</span> <br>
+                        <span class="tab1"></span><span class="n2">margin</span>: <span class="n3">0</span> <span class="n4">auto</span>; <br>
+                        <span class="tab1"></span><span class="n2">font-weight</span>: <span class="n3">500;</span> <br>
+                        <span class="brkts">}</span>
+                    </code>
+                </div>
+            </section>
+            <div class="divider"></div>
+            <section>
+                <h2 id="simple_form">Um formulário simples</h2><a href="#top"><i class="fa-solid fa-arrow-up"></i></a>
+                <form autocomplete="off">
+                    <input autocomplete="false" name="hidden" type="text" style="display: none;">
+    
+                    <label for="name-input"><span class="rt-input">Nome:</span></label>
+                    <input class="input-entries" type="text" placeholder="Type your name" id="name-input">
+                    
+                    <label for="email-input"><span class="rt-input">E-mail:</span></label> 
+                    <input class="input-entries" type="email" name="" id="email-input" placeholder="Type your email address">
+                    
+                    <label for="age-input"><span class="rt-input">Idade:</span></label> 
+                    <input class="input-entries" type="number" id="age-input" min="0" max="120">
+    
+                    <input type="submit" value="Submit" >
+                    <input type="reset" value="Reset" >
+                </form>
+            </section>
+    
+            <div class="divider"></div>
+            <section>
+                <h2 id="simple_table">Uma tabela simples</h2><a href="#top"><i class="fa-solid fa-arrow-up"></i></a>
+                <table id="tbl-1">
+                    <thead>
+                        <tr>
+                            <th>Descição</th>
+                            <th>2011</th>
+                            <th>2012</th>
+                            <th>2013</th>
+                        </tr>
+                    </thead>
+    
+                    <tbody>
+                        <tr>
+                            <td>Curso</td>
+                            <td>CS50x</td>
+                            <td>MAT101</td>
+                            <td>PHIL202</td>
+                        </tr>
+                        <tr>
+                            <td>Veículo</td>
+                            <td>Ferrari</td>
+                            <td>Bugatti</td>
+                            <td>McLaren</td>
+                        </tr>
+                        <tr>
+                            <td>Comida</td>
+                            <td>Arroz</td>
+                            <td>Pão</td>
+                            <td>Cenoura</td>
+                        </tr>
+                        <tr>
+                            <td>País</td>
+                            <td>França</td>
+                            <td>Brasil</td>
+                            <td>Alemanha</td>
+                        </tr>
+                        <tr>
+                            <td>Animal</td>
+                            <td>Urso</td>
+                            <td>Cachorro</td>
+                            <td>Esquilo</td>
+                        </tr>
+                        <tr>
+                            <td>Hardware</td>
+                            <td>Mouse</td>
+                            <td>Teclado</td>
+                            <td>Monitor</td>
+                        </tr>    
+                    </tbody>
+    
+                </table>
+    
+                <p>A tabela abaixo possui outro estilo.</p>
+    
+                <table id="tbl-2">
+                    <thead>
+                        <tr>
+                            <th>Descrição</th>
+                            <th>2011</th>
+                            <th>2012</th>
+                            <th>2013</th>
+                        </tr>
+                    </thead>
+    
+                    <tbody>
+                        <tr>
+                            <td>Curso</td>
+                            <td>CS50x</td>
+                            <td>MAT101</td>
+                            <td>PHIL202</td>
+                        </tr>
+                        <tr>
+                            <td>Veículo</td>
+                            <td>Ferrari</td>
+                            <td>Bugatti</td>
+                            <td>McLaren</td>
+                        </tr>
+                        <tr>
+                            <td>Comida</td>
+                            <td>Arroz</td>
+                            <td>Pão</td>
+                            <td>Cenoura</td>
+                        </tr>
+                        <tr>
+                            <td>País</td>
+                            <td>França</td>
+                            <td>Brasil</td>
+                            <td>Alemanha</td>
+                        </tr>
+                        <tr>
+                            <td>Animal</td>
+                            <td>Urso</td>
+                            <td>Cachorro</td>
+                            <td>Esquilo</td>
+                        </tr>
+                        <tr>
+                            <td>Hardware</td>
+                            <td>Mouse</td>
+                            <td>Teclado</td>
+                            <td>Monitor</td>
+                        </tr>    
+                    </tbody>
+    
+                </table>
+            </section>
+    
+            <div class="divider"></div>
+            <section>
+                <h2 id="rgb_gradient_effect">Efeito Gradiente RGB</h2><a href="#top"><i class="fa-solid fa-arrow-up"></i></a>
+                <!-- <p>The gradient effect below is made by using pure CSS.</p> -->
+                <p>O efeito gradiente abaixo é feito utilizando apenas CSS.</p>
+                <div id="rgb-gradient"></div>
+                <p></p>O código CSS é mostrado abaixo:</p>
+                <div class="code">
+                    <code>
+                        <span class="n1">#rgb-gradient</span> <span class="brkts">{</span> <br>
+                        <span class="tab1"></span><span class="n2">background</span>: <span class="n3"><br/>
+                            <span class="tab1"></span><span class="tab1"></span><span class="n5">linear-gradient</span><span class="n6">(</span>90deg, red, green, blue<span class="n6">)</span></span>; <br>
+                        <span class="tab1"></span><span class="n2">display</span>: <span class="n4">block</span>; <br>
+                        <span class="tab1"></span><span class="n2">width</span>: <span class="n3">80%</span>; <br>
+                        <span class="tab1"></span><span class="n2">height</span>: <span class="n3">30px;</span> <br>
+                        <span class="brkts">}</span>
+                    </code>
+                </div>
+            </section>
+    
+            <div class="divider"></div>
+            <section>
+                <h2 id="push_section">Empurrar</h2><a href="#top"><i class="fa-solid fa-arrow-up"></i></a>
+                <!-- <p>Click on any of the squares below to push the neighboring square to the right.</p> -->
+                <p>Clique em qualquer um dos quadrados abaixo apra empurrar o quadrado vizinho para a direita.</p>
+                <div class="cubes-div">
+                    <div class="cube"></div>
+                    <div class="cube"></div>
+                    <div class="cube"></div>
+                </div>
+            </section>
+    
+            <div class="divider"></div>
+            <section>
+                <h2 id="jump_section">Pular</h2><a href="#top"><i class="fa-solid fa-arrow-up"></i></a>
+                <!-- <p>Hover over the square below to see its shadow distancing from it.</p> -->
+                <p>Mova o seu mouse acima do quadrado abaixo para ver a sua sombra se distanciando do mesmo.</p>
+                <div class="cubes-div">
+                    <div class="cube-pular"></div>
+                </div>
+            </section>
+    
+            <div class="divider"></div>
+            <section>
+                <h2 id="another_grid">Quadrados afundando</h2><a href="#top"><i class="fa-solid fa-arrow-up"></i></a>
+                <!-- <p>Hover over the squares below to see them go down into the page.</p> -->
+                <p>Mova o seu mouse acima dos quadrados abaixo para vê-los afundando na página.</p>
+                <div class="push-grid">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </section>
+    
+            <div class="divider"></div>
+            <section>
+                <h2 id="clip_section">Cortar</h2><a href="#top"><i class="fa-solid fa-arrow-up"></i></a>
+                
+                <!-- <p>Keep pressing (holding) the blue square below to see it being clipped by a circle.</p> -->
+                <p>Mantenha o botão do mouse pressionado sobre o quadrado azul para vê-lo sendo cortado por um círculo.</p>
+                <div class="square-to-clip circle-clipped"></div>
+                
+            </section>
+    
+            <div class="divider"></div>
+            <section>
+                <h2 id="an_example_of_svg">Um exemplo de SVG</h2> <a href="#top"><i class="fa-solid fa-arrow-up"></i></a>
+                <svg viewBox="0 0 25 25" width="300px" height="300px" id="linkedin-logo-svg">
+                    <path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"></path>
+                </svg>
+                <!-- <p>The SVG above was generated by the following vector coordinates:</p> -->
+                <p>O SVG acima foi gerado pelas seguintes coordenadas vetoriais:</p>
+                
+                <div onclick="copyCoords(this.id)" class="svg-code" id="asdf">
+                    M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z
+                </div>
+    
+                <div class="tip">
+                    <!-- <span class="tip-title">Tip 💡</span> Click on the SVG code above to copy the coordinates to memory. You can also access the following link <a href="https://svg-path-visualizer.netlify.app/#M20.5%202h-17A1.5%201.5%200%20002%203.5v17A1.5%201.5%200%20003.5%2022h17a1.5%201.5%200%20001.5-1.5v-17A1.5%201.5%200%200020.5%202zM8%2019H5v-9h3zM6.5%208.25A1.75%201.75%200%20118.3%206.5a1.78%201.78%200%2001-1.8%201.75zM19%2019h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74%201.74%200%200013%2014.19a.66.66%200%20000%20.14V19h-3v-9h2.9v1.3a3.11%203.11%200%20012.7-1.4c1.55%200%203.36.86%203.36%203.66z" target="_blank">SVG Path Visualizer</a> to visualize the resulting shape of these coordinates on a new tab in your browser. -->
+                    <span class="tip-title">Dica 💡</span> Clique sobre o código SVG acima para copiar as coordenadas para a memória. Você pode também acessar o seguinte link <a href="https://svg-path-visualizer.netlify.app/#M20.5%202h-17A1.5%201.5%200%20002%203.5v17A1.5%201.5%200%20003.5%2022h17a1.5%201.5%200%20001.5-1.5v-17A1.5%201.5%200%200020.5%202zM8%2019H5v-9h3zM6.5%208.25A1.75%201.75%200%20118.3%206.5a1.78%201.78%200%2001-1.8%201.75zM19%2019h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74%201.74%200%200013%2014.19a.66.66%200%20000%20.14V19h-3v-9h2.9v1.3a3.11%203.11%200%20012.7-1.4c1.55%200%203.36.86%203.36%203.66z" target="_blank">SVG Path Visualizer</a> para visualizar o formato resultante destas coordenadas e uma nova guia do seu navegador.
+                </div>
+            </section>
+    
+            
+    
+            <div class="divider"></div>
+            <section>
+                <h2 id="tooltip-section">Caixa de dica</h2><a href="#top"><i class="fa-solid fa-arrow-up"></i></a>
+                
+                <!-- <p>Click the underlined words in the paragraph below to see a tooltip box.</p> -->
+                <p>Clique e mantenha pressionado sobre as palavras sublinhadas no parágrafo abaixo para ver uma caixa de dica.</p>
+
+                <p><span class="tooltip">Lorem</span>, ipsum dolor sit amet <span class="tooltip">consectetur</span> adipisicing elit. Quas ipsa asperiores tempora rerum facere! Iste doloremque <span class="tooltip">exercitationem</span> molestiae esse! Tenetur error velit magnam reiciendis excepturi ipsam fugiat accusamus <span class="tooltip">earum ab</span>!</p>
+            </section>
+    
+            
+    
+            
+    
+        </main>
+        <footer>
+            <div id="divider-footer"></div>
+            Roberto Cabral - 2022
+            
+            <div id="social-icons">
+                
+                <a href="https://github.com/betofc89" target="_blank"><img src="./img/github_logo.png" class="social-logos" id="github-logo"></a>
+                
+                <a href="https://www.linkedin.com/in/roberto-de-freitas-cabral/" target="_blank">
+                    <img src="./img/linkedin3_logo.png" class="social-logos" id="linkedin-logo">
+                </a>
+    
+            </div>
+    
+        </footer>
+    </div>
+</body>
+</html>
