@@ -223,7 +223,7 @@
   </main>
   <footer>
     <div id="footer-line"></div>
-    Roberto Cabral - 2022
+    Roberto Cabral - 2026
   </footer>
 </template>
 
